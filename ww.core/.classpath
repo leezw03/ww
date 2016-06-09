@@ -2,7 +2,6 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="src_cmp"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
 	<classpathentry kind="lib" path="/ww.lib/3rd/spring/spring-context-4.2.4.RELEASE.jar"/>
 	<classpathentry kind="lib" path="/ww.lib/3rd/spring/spring-web-4.2.4.RELEASE.jar"/>
 	<classpathentry kind="lib" path="/ww.lib/3rd/javaee.jar"/>
@@ -25,5 +24,48 @@
 	<classpathentry kind="lib" path="/ww.lib/3rd/spring/spring-webmvc-4.2.4.RELEASE.jar"/>
 	<classpathentry kind="lib" path="/ww.lib/3rd/spring/spring-webmvc-portlet-4.2.4.RELEASE.jar"/>
 	<classpathentry kind="lib" path="/ww.lib/3rd/spring/spring-websocket-4.2.4.RELEASE.jar"/>
+	<classpathentry kind="lib" path="/ww.lib/3rd/ant.jar"/>
+	<classpathentry kind="lib" path="/ww.lib/3rd/aopalliance.jar"/>
+	<classpathentry kind="lib" path="/ww.lib/3rd/aspectjrt.jar"/>
+	<classpathentry kind="lib" path="/ww.lib/3rd/aspectjweaver.jar"/>
+	<classpathentry kind="lib" path="/ww.lib/3rd/commons-codec-1.4.jar"/>
+	<classpathentry kind="lib" path="/ww.lib/3rd/commons-dbcp.jar"/>
+	<classpathentry kind="lib" path="/ww.lib/3rd/commons-fileupload.jar"/>
+	<classpathentry kind="lib" path="/ww.lib/3rd/commons-httpclient-3.0.1.jar"/>
+	<classpathentry kind="lib" path="/ww.lib/3rd/commons-io-1.1.jar"/>
+	<classpathentry kind="lib" path="/ww.lib/3rd/commons-logging-1.1.1.jar"/>
+	<classpathentry kind="lib" path="/ww.lib/3rd/commons-net-1.4.1.jar"/>
+	<classpathentry kind="lib" path="/ww.lib/3rd/dom4j-1.6.1.jar"/>
+	<classpathentry kind="lib" path="/ww.lib/3rd/druid-1.0.9.jar"/>
+	<classpathentry kind="lib" path="/ww.lib/3rd/fastjson-1.2.6.jar"/>
+	<classpathentry kind="lib" path="/ww.lib/3rd/httpclient-4.1.2.jar"/>
+	<classpathentry kind="lib" path="/ww.lib/3rd/httpcore-4.1.2.jar"/>
+	<classpathentry kind="lib" path="/ww.lib/3rd/ibatis-2.3.4.726.jar"/>
+	<classpathentry kind="lib" path="/ww.lib/3rd/jaxen-1.1-beta-7.jar"/>
+	<classpathentry kind="lib" path="/ww.lib/3rd/jcl-over-slf4j-1.7.5.jar"/>
+	<classpathentry kind="lib" path="/ww.lib/3rd/jsqlparser-0.9.1.jar"/>
+	<classpathentry kind="lib" path="/ww.lib/3rd/jstl-1.2.jar"/>
+	<classpathentry kind="lib" path="/ww.lib/3rd/jul-to-slf4j-1.7.5.jar"/>
+	<classpathentry kind="lib" path="/ww.lib/3rd/log4j-1.2.16.jar"/>
+	<classpathentry kind="lib" path="/ww.lib/3rd/log4j-over-slf4j-1.6.6.jar"/>
+	<classpathentry kind="lib" path="/ww.lib/3rd/logback-access-1.0.3.jar"/>
+	<classpathentry kind="lib" path="/ww.lib/3rd/logback-classic-1.0.3.jar"/>
+	<classpathentry kind="lib" path="/ww.lib/3rd/logback-core-1.0.3.jar"/>
+	<classpathentry kind="lib" path="/ww.lib/3rd/servlet-api-2.5-20081211.jar"/>
+	<classpathentry kind="lib" path="/ww.lib/3rd/servlet-api-2.5.jar"/>
+	<classpathentry kind="lib" path="/ww.lib/3rd/slf4j-api-1.6.6.jar"/>
+	<classpathentry kind="lib" path="/ww.lib/3rd/stax2-api-3.1.1.jar"/>
+	<classpathentry kind="lib" path="/ww.lib/3rd/xstream-1.4.1.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
+	<classpathentry kind="con" path="org.eclipse.jst.server.core.container/org.eclipse.jst.server.tomcat.runtimeTarget/Apache Tomcat v8.0">
+		<attributes>
+			<attribute name="owner.project.facets" value="jst.utility"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jdk1.8.x64">
+		<attributes>
+			<attribute name="owner.project.facets" value="java"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
