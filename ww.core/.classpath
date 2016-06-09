@@ -2,6 +2,7 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="src_cmp"/>
+	<classpathentry kind="src" path="src_frame"/>
 	<classpathentry kind="lib" path="/ww.lib/3rd/spring/spring-context-4.2.4.RELEASE.jar"/>
 	<classpathentry kind="lib" path="/ww.lib/3rd/spring/spring-web-4.2.4.RELEASE.jar"/>
 	<classpathentry kind="lib" path="/ww.lib/3rd/javaee.jar"/>
