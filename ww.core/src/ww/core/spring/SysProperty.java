@@ -93,7 +93,7 @@ public class SysProperty extends PropertyPlaceholderConfigurer {
 		if(StringUtils.isNotBlank(envPath)) {
 			propPath = "file:"+envPath+File.separator+"user"+File.separator+env+".properties";
 		} else {
-			propPath = "classpath*:config/user/"+env+".properties";
+			propPath = "classpath*:config/env/"+env+".properties";
 		}
 		envProp = new Properties();
 		this.loadProp(envProp, propPath);

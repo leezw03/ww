@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/ww.core"/>
+	<classpathentry kind="lib" path="/ww.lib/3rd/spring/spring-aop-4.2.4.RELEASE.jar"/>
+	<classpathentry kind="lib" path="/ww.lib/3rd/spring/spring-aspects-4.2.4.RELEASE.jar"/>
+	<classpathentry kind="lib" path="/ww.lib/3rd/spring/spring-beans-4.2.4.RELEASE.jar"/>
+	<classpathentry kind="lib" path="/ww.lib/3rd/spring/spring-context-4.2.4.RELEASE.jar"/>
+	<classpathentry kind="lib" path="/ww.lib/3rd/spring/spring-context-support-4.2.4.RELEASE.jar"/>
+	<classpathentry kind="lib" path="/ww.lib/3rd/spring/spring-core-4.2.4.RELEASE.jar"/>
+	<classpathentry kind="lib" path="/ww.lib/3rd/spring/spring-expression-4.2.4.RELEASE.jar"/>
+	<classpathentry kind="lib" path="/ww.lib/3rd/spring/spring-instrument-4.2.4.RELEASE.jar"/>
+	<classpathentry kind="lib" path="/ww.lib/3rd/spring/spring-instrument-tomcat-4.2.4.RELEASE.jar"/>
+	<classpathentry kind="lib" path="/ww.lib/3rd/spring/spring-jdbc-4.2.4.RELEASE.jar"/>
+	<classpathentry kind="lib" path="/ww.lib/3rd/spring/spring-jms-4.2.4.RELEASE.jar"/>
+	<classpathentry kind="lib" path="/ww.lib/3rd/spring/spring-messaging-4.2.4.RELEASE.jar"/>
+	<classpathentry kind="lib" path="/ww.lib/3rd/spring/spring-orm-4.2.4.RELEASE.jar"/>
+	<classpathentry kind="lib" path="/ww.lib/3rd/spring/spring-oxm-4.2.4.RELEASE.jar"/>
+	<classpathentry kind="lib" path="/ww.lib/3rd/spring/spring-test-4.2.4.RELEASE.jar"/>
+	<classpathentry kind="lib" path="/ww.lib/3rd/spring/spring-tx-4.2.4.RELEASE.jar"/>
+	<classpathentry kind="lib" path="/ww.lib/3rd/spring/spring-web-4.2.4.RELEASE.jar"/>
+	<classpathentry kind="lib" path="/ww.lib/3rd/spring/spring-webmvc-4.2.4.RELEASE.jar"/>
+	<classpathentry kind="lib" path="/ww.lib/3rd/spring/spring-webmvc-portlet-4.2.4.RELEASE.jar"/>
+	<classpathentry kind="lib" path="/ww.lib/3rd/spring/spring-websocket-4.2.4.RELEASE.jar"/>
+	<classpathentry kind="lib" path="/ww.lib/3rd/junit-4.9.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

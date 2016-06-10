@@ -16,14 +16,6 @@
 	<!-- 用于持有ApplicationContext, 可以使用BeanUtils.getBean('xxxx')的静态方法得到bean对象 -->
 	<bean class="ww.core.spring.BeanUtils" />
 	<!-- 通过spring加载系统配置 -->
-	<bean id="propertyConfigurer" class="ww.core.spring.SysProperty"
-		factory-method="getInstance">
-		<property name="custLocations">
-			<list>
-			    <value>classpath*:config/core-*.properties</value>
-				<value>classpath*:config/syscfg.properties</value>
-			</list>
-		</property>
-		<property name="fileEncoding" value="UTF-8"/>
+	<bean id="propertyConfigurer" class="ww.core.spring.SysProperty" factory-method="getInstance">
 	</bean>
 </beans>
