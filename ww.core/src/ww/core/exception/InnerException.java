@@ -12,6 +12,7 @@ public class InnerException extends RuntimeException {
 	
 	public InnerException(String message, Exception exception) {
 		super(message);
+		exception.printStackTrace();
 		this.exception = exception;
 	}
 
