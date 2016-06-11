@@ -3,6 +3,7 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="src_cmp"/>
 	<classpathentry kind="src" path="src_frame"/>
+	<classpathentry kind="src" path="src_3rd"/>
 	<classpathentry kind="lib" path="/ww.lib/3rd/spring/spring-context-4.2.4.RELEASE.jar"/>
 	<classpathentry kind="lib" path="/ww.lib/3rd/spring/spring-web-4.2.4.RELEASE.jar"/>
 	<classpathentry kind="lib" path="/ww.lib/3rd/javaee.jar"/>
@@ -62,5 +63,6 @@
 			<attribute name="owner.project.facets" value="java"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="/ww.lib/3rd/ojdbc14.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
