@@ -13,7 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.SimpleMappingExceptionResolver;
 
-import ww.core.utils.HttpRequestDeviceUtils;
+import ww.core.utils.http.HttpRequestDeviceUtils;
 
 public class CustomSimpleMappingExceptionResolver extends
 		SimpleMappingExceptionResolver {

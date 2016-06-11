@@ -1,4 +1,4 @@
-package ww.core.utils;
+package ww.core.utils.http;
 
 import javax.servlet.http.HttpServletRequest;
 
