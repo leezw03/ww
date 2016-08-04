@@ -3,6 +3,5 @@
         <wb-resource deploy-path="/" source-path="/src"/>
         <wb-resource deploy-path="/" source-path="/src_cmp"/>
         <wb-resource deploy-path="/" source-path="/src_frame"/>
-        <wb-resource deploy-path="/" source-path="/src_3rd"/>
     </wb-module>
 </project-modules>

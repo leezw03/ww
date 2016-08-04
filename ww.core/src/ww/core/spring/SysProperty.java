@@ -3,8 +3,6 @@ package ww.core.spring;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Properties;
 
 import org.apache.commons.lang.StringUtils;
@@ -82,7 +80,7 @@ public class SysProperty extends PropertyPlaceholderConfigurer {
 	
 	private void initSysProp() {
 		sysProp = new Properties();
-		this.loadProp(sysProp, WW.PROP_PATH_SYS);
+		this.loadProp(sysProp, WW.PROP_ROOT_PATH_SYS+"*.properties");
 	}
 	
 	private void initEnvProp() {
@@ -93,7 +91,7 @@ public class SysProperty extends PropertyPlaceholderConfigurer {
 		if(StringUtils.isNotBlank(envPath)) {
 			propPath = "file:"+envPath+File.separator+"user"+File.separator+env+".properties";
 		} else {
-			propPath = "classpath*:config/env/"+env+".properties";
+			propPath = WW.PROP_ROOT_PATH_ENV+env+".properties";
 		}
 		envProp = new Properties();
 		this.loadProp(envProp, propPath);
@@ -106,7 +104,6 @@ public class SysProperty extends PropertyPlaceholderConfigurer {
 		} catch (Exception e) {
 			throw new InnerException(String.format("加载配置文件路径 %s 失败！", path), e);
 		}
-		List<Properties> propList = new ArrayList<Properties>();
 		for (Resource location : resArray) {
 			Properties p = new Properties();
 			try {
@@ -115,10 +112,6 @@ public class SysProperty extends PropertyPlaceholderConfigurer {
 			} catch(Exception e) {
 				throw new InnerException(String.format("加载配置文件 %s 失败！", location.getFilename()), e);
 			}
-			propList.add(p);
-		}
-		
-		for (Properties p : propList) {
 			for (Object k : p.keySet()) {
 				String pk = k.toString();
 				if (custProp.containsKey(pk)) {

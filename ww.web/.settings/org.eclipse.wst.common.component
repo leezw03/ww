@@ -2,6 +2,7 @@
     <wb-module deploy-name="ww.web">
         <wb-resource deploy-path="/" source-path="/web" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src_env"/>
         <dependent-module archiveName="ww.core.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/ww.core/ww.core">
             <dependency-type>uses</dependency-type>
         </dependent-module>
