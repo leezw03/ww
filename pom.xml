@@ -23,6 +23,7 @@
 	<modules>
 		<module>ww.core</module>
 		<module>ww.frame.web</module>
+		<module>ww.web</module>
 	</modules>
 
 	<dependencies>
