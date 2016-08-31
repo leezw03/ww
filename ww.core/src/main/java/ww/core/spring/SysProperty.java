@@ -1,6 +1,5 @@
 package ww.core.spring;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Properties;
@@ -73,21 +72,25 @@ public class SysProperty extends PropertyPlaceholderConfigurer {
 	
 	private void initSysProp() throws IOException {
 		sysProp = new Properties();
+		this.loadProp(sysProp, Ww.Env.WW_SYS+"*.properties");
 		this.loadProp(sysProp, Ww.Env.SYS+"*.properties");
 	}
 	
 	private void initEnvProp() throws IOException {
+		envProp = new Properties();
 		String env = appProp.getProperty("env", "default");
 		String envPath = appProp.getProperty("env.path");
 		
 		String propPath = null;
 		if(StringUtils.isNotBlank(envPath)) {
-			propPath = "file:"+envPath+File.separator+"user"+File.separator+env+".properties";
+			propPath = "file:"+envPath+"/env/"+env+".properties";
+			this.loadProp(envProp, propPath);
 		} else {
+			propPath = Ww.Env.WW_ENV+env+".properties";
+			this.loadProp(envProp, propPath);
 			propPath = Ww.Env.ENV+env+".properties";
+			this.loadProp(envProp, propPath);
 		}
-		envProp = new Properties();
-		this.loadProp(envProp, propPath);
 	}
 	
 	private void loadProp(Properties custProp, String path) throws IOException {

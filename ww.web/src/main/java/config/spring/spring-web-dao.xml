@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd">
+	
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
+		destroy-method="close">
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+		<property name="initialSize" value="${jdbc.initialSize}" />
+		<property name="maxActive" value="${jdbc.maxActive}" />
+		<property name="minIdle" value="${jdbc.minIdle}" />
+
+		<!-- 配置获取连接等待超时的时间 -->
+		<property name="maxWait" value="60000" />
+
+		<!-- 是否自动回收超时连接 -->
+		<property name="removeAbandoned" value="false" />
+		<!-- 超时时间(以秒数为单位) -->
+		<property name="removeAbandonedTimeout" value="150" />
+		<!-- 是否在自动回收超时连接的时候打印连接的超时错误 -->
+		<property name="logAbandoned" value="true" />
+
+		<!-- false : 空闲时是否验证, 若不通过断掉连接, 前提是空闲对象回收器开启状态 -->
+		<property name="testWhileIdle" value="true" />
+		<property name="validationQuery" value="${jdbc.validationQuery}" />
+
+		<!-- -1 : 以毫秒表示空闲对象回收器由运行间隔。值为负数时表示不运行空闲对象回收器 若需要回收, 该值最好小于 minEvictableIdleTimeMillis值 -->
+		<property name="timeBetweenEvictionRunsMillis" value="300000" />
+
+		<!-- 1000*60*30 : 被空闲对象回收器回收前在池中保持空闲状态的最小时间, 毫秒表示 若需要回收, 该值最好小于DB中的 wait_timeout值 -->
+		<property name="minEvictableIdleTimeMillis" value="320000" />
+
+		<!-- 打开PSCache，并且指定每个连接上PSCache的大小 -->
+		<property name="poolPreparedStatements" value="true" />
+		<property name="maxPoolPreparedStatementPerConnectionSize" value="20" />
+		<!-- 注意：informix的事物级别一定要设置成1，READ_UNCOMMITTED -->
+		<property name="defaultTransactionIsolation" value="${jdbc.isolation}"></property>
+	</bean>
+	
+    <tx:annotation-driven transaction-manager="transactionManager" />
+    
+	<aop:config proxy-target-class="true">
+		<aop:advisor pointcut="execution(* com..*..*.bo.*BO.*(..))"
+			advice-ref="txAdvice" />
+	</aop:config>
+
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="find*" read-only="true" />
+			<tx:method name="select*" read-only="true" />
+			<tx:method name="get*" read-only="true" />
+			<tx:method name="query*" read-only="true" />
+			<tx:method name="*" propagation="REQUIRED" read-only="false"
+				rollback-for="RunTimeException,Exception" />
+		</tx:attributes>
+	</tx:advice>
+	
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+    
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"/>
+		<property name="configLocation" value="classpath:ww/config/mybatis/mybatis-config.xml"/>
+		<property name="mapperLocations">
+			<list>
+				<value>classpath*:com/**/sqlmap/**/*_SqlMap.xml</value>
+			</list>
+		</property>
+	</bean>
+</beans>

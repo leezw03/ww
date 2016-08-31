@@ -1,7 +1,5 @@
 package ww;
 
-import java.io.File;
-
 public class Ww {
 
 	public interface Log {
@@ -18,8 +16,10 @@ public class Ww {
 	public interface Env {
 		
 		public static final String APP = "classpath:app.properties";
-		public static final String SYS = "classpath*:ww"+File.separator+"config"+File.separator+"sys"+File.separator;
-		public static final String ENV = "classpath*:ww"+File.separator+"config"+File.separator+"env"+File.separator;
+		public static final String WW_SYS = "classpath*:ww/config/sys/";
+		public static final String SYS = "classpath*:config/sys/";
+		public static final String WW_ENV = "classpath*:ww/config/env/";
+		public static final String ENV = "classpath*:config/env/";
 		
 	}
 	

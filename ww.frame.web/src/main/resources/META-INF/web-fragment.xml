@@ -11,7 +11,9 @@
 			classpath*:META-INF/ww/config/spring/spring-*.xml,
 			classpath*:META-INF/ww/config/webonly/spring/spring-*.xml,
 			classpath*:ww/config/spring/spring-*.xml,
-			classpath*:ww/config/webonly/spring/spring-*.xml
+			classpath*:ww/config/webonly/spring/spring-*.xml,
+			classpath*:config/spring/spring-*.xml,
+			classpath*:config/webonly/spring/spring-*.xml
 		</param-value>
 	</context-param>
 	<listener>
