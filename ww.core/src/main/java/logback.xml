@@ -25,10 +25,73 @@
 				%msg%n</Pattern>
 		</layout>
 	</appender>
-	<!--这里指定logger name 是为jmx设置日志级别做铺垫 -->
-	<logger name="com.xxx.xxx">
-		<level value="INFO" />
+	
+	<root level="INFO">
 		<appender-ref ref="STDOUT" />
 		<appender-ref ref="FILE" />
+	</root>
+	<!--这里指定logger name 是为jmx设置日志级别做铺垫 -->
+	<logger name="java.sql.Connection">
+		<level value="INFO" />
+	</logger>
+	<logger name="java.sql.PreparedStatement">
+		<level value="INFO" />
+	</logger>
+	<logger name="java.sql.Statement">
+		<level value="INFO" />
+	</logger>
+	<logger name="java.sql.ResultSet">
+		<level value="INFO" />
+	</logger>
+	<logger name="jdbc.sqlonly">
+		<level value="INFO" />
+	</logger>
+	<logger name="jdbc.sqltiming">
+		<level value="INFO" />
+	</logger>
+	<logger name="jdbc.audit">
+		<level value="WARN" />
+	</logger>
+	<logger name="jdbc.resultset">
+		<level value="WARN" />
+	</logger>
+	<logger name="jdbc.connection">
+		<level value="WARN" />
+	</logger>
+	<logger name="org.springframework">
+		<level value="WARN" />
+	</logger>
+	<logger name="org.apache.commons.httpclient">
+		<level value="WARN" />
+	</logger>
+	<logger name="log4jdbc.debug">
+		<level value="WARN" />
+	</logger>
+	<logger name="com.alibaba.druid.pool" >
+		<level value="WARN" />
+	</logger>
+	<logger name="net.sf.ehcache">
+		<level value="WARN"></level>
+	</logger>
+	<logger name="org.apache.commons.beanutils">
+		<level value="WARN" />
+	</logger>
+	<logger name="net.rubyeye">
+		<level value="WARN"></level>
+	</logger>
+	<logger name="com.google.code.yanf4j">
+		<level value="WARN"></level>
+	</logger>
+	<logger name="org.quartz">
+		<level value="WARN" />
+	</logger>
+	<logger name="httpclient.wire.content">
+		<level value="WARN" />
+	</logger>
+	<logger name="org.apache.http">
+		<level value="WARN" />
+	</logger>
+	<logger name="com.alibaba.dubbo.common.extension.ExtensionLoader">
+		<level value="WARN" />
 	</logger>
 </configuration>  
