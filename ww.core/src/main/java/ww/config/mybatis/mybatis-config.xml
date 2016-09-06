@@ -16,4 +16,6 @@
         <setting name="jdbcTypeForNull" value="OTHER" />  
         <setting name="lazyLoadTriggerMethods" value="equals,clone,hashCode,toString" />  
     </settings>
+    
+    <typeAlias alias="sqlAdapter" type="ww.core.mybatis.pojo.SqlAdapter" />
 </configuration>
