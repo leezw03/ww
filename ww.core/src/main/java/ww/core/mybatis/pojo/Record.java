@@ -4,16 +4,26 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.sun.tools.javac.util.StringUtils;
+
 public class Record implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
 	private final String table;
+	private Pk pk;
 	private DbRecord values;
 	private Map<String, String> sqlValues;
 
 	public Record(String table) {
+		this.table = StringUtils.toUpperCase(table);
+		this.values = new DbRecord();
+		this.sqlValues = new HashMap<String, String>();
+	}
+	
+	public Record(String table, Pk pk) {
 		this.table = table;
+		this.pk = pk;
 	}
 	
 	public void setDatas(DbRecord dbRecord) {
@@ -25,9 +35,6 @@ public class Record implements Serializable {
 	}
 	
 	public void addData(String name, Object value) {
-		if(this.values == null) {
-			this.values = new DbRecord();
-		}
 		this.values.put(name, value);
 	}
 	
@@ -40,5 +47,21 @@ public class Record implements Serializable {
 
 	public String getTable() {
 		return table;
+	}
+
+	public Pk getPk() {
+		return pk;
+	}
+
+	public void setPk(Pk pk) {
+		this.pk = pk;
+	}
+
+	public DbRecord getValues() {
+		return values;
+	}
+
+	public Map<String, String> getSqlValues() {
+		return sqlValues;
 	}
 }

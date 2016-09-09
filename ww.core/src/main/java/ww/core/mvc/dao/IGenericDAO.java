@@ -27,7 +27,7 @@ public abstract interface IGenericDAO<T, ID extends Serializable> {
      * @param entity 实体对象
      * @return 修改的对象个数，正常情况=1
      */
-    public abstract int update(T entity);
+    public abstract int update(ID primaryKey, T entity);
     
     /**
      * 按主键删除记录

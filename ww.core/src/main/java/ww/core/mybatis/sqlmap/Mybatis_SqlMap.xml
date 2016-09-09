@@ -14,4 +14,24 @@
 		${sql}
 	</delete>
 	
+	<update id="updateRecord" parameterType="record">
+		UPDATE ${table} SET
+		<foreach collection="values" index="key" separator=",">
+			${key} = #{values[key]}
+		</foreach>
+		<foreach collection="sqlValues" index="key" separator=",">
+			${key} = (${sqlValues[key]})
+		</foreach>
+		 WHERE
+		<choose>
+			<when test="pk != null and pk.colList!=null and pk.colList.size()>0">
+            	<foreach collection="pk.colList" item="pkCol" separator="AND">
+            		${pkCol.name} = #{pkCol.value}
+            	</foreach>
+			</when>
+			<otherwise>
+				1=2
+            </otherwise>
+		</choose>
+	</update>
 </mapper>
