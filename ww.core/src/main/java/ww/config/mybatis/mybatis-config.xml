@@ -15,7 +15,13 @@
         <setting name="localCacheScope" value="SESSION" />  
         <setting name="jdbcTypeForNull" value="OTHER" />  
         <setting name="lazyLoadTriggerMethods" value="equals,clone,hashCode,toString" />  
+        <setting name="logPrefix" value="dao."/>
     </settings>
     
-    <typeAlias alias="sqlAdapter" type="ww.core.mybatis.pojo.SqlAdapter" />
+    <typeAliases>
+    	<typeAlias alias="sqlAdapter" type="ww.core.mybatis.pojo.SqlAdapter" />
+    </typeAliases>
+    
+    <mappers>
+	</mappers>
 </configuration>

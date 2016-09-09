@@ -10,6 +10,7 @@
 	
     <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
 		destroy-method="close">
+		<property name="driverClassName" value="${jdbc.driver}" />
 		<property name="url" value="${jdbc.url}" />
 		<property name="username" value="${jdbc.username}" />
 		<property name="password" value="${jdbc.password}" />
@@ -73,7 +74,12 @@
 		<property name="mapperLocations">
 			<list>
 				<value>classpath*:com/**/sqlmap/**/*_SqlMap.xml</value>
+				<value>classpath*:ww/**/sqlmap/**/*_SqlMap.xml</value>
 			</list>
 		</property>
+	</bean>
+	
+	<bean id="MybatisDAO" class="ww.core.mybatis.MybatisDAO">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
 	</bean>
 </beans>

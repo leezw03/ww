@@ -94,4 +94,6 @@
 	<logger name="com.alibaba.dubbo.common.extension.ExtensionLoader">
 		<level value="WARN" />
 	</logger>
+	
+	<logger name="dao" level="DEBUG"/>
 </configuration>  

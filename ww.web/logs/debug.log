@@ -1,0 +1,20 @@
+2016-09-09 22:53:31.355 [main] DEBUG dao._Mybatis_.findBySql -
+				==>  Preparing: $sql$ 
+2016-09-09 22:53:31.388 [main] DEBUG dao._Mybatis_.findBySql -
+				==> Parameters: 
+2016-09-09 22:54:28.619 [main] DEBUG dao._Mybatis_.findBySql -
+				==>  Preparing: $sql$ 
+2016-09-09 22:54:28.654 [main] DEBUG dao._Mybatis_.findBySql -
+				==> Parameters: 
+2016-09-09 22:56:45.806 [main] DEBUG dao._Mybatis_.findBySql -
+				==>  Preparing: SELECT 'ABS' AS NAME FROM DUAL 
+2016-09-09 22:56:45.842 [main] DEBUG dao._Mybatis_.findBySql -
+				==> Parameters: 
+2016-09-09 22:56:45.932 [main] DEBUG dao._Mybatis_.findBySql -
+				<==      Total: 1
+2016-09-09 23:28:06.779 [main] DEBUG dao._Mybatis_.findBySql -
+				==>  Preparing: SELECT 'ABS' AS NAME FROM DUAL 
+2016-09-09 23:28:06.816 [main] DEBUG dao._Mybatis_.findBySql -
+				==> Parameters: 
+2016-09-09 23:28:06.896 [main] DEBUG dao._Mybatis_.findBySql -
+				<==      Total: 1
