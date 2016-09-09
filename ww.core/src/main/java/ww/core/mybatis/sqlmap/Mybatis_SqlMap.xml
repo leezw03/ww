@@ -1,9 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" ?>  
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
 <mapper namespace="_Mybatis_">
-	
+
 	<select id="findBySql" parameterType="sqlAdapter" resultType="ww.core.mybatis.pojo.DbRecord">
 		${sql}
 	</select>
+	
+	<update id="updateBySql" parameterType="sqlAdapter">
+		${sql}
+	</update>
+	
+	<delete id="deleteBySql" parameterType="sqlAdapter">
+		${sql}
+	</delete>
 	
 </mapper>

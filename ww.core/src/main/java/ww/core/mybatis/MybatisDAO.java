@@ -15,4 +15,14 @@ public class MybatisDAO extends GenericMybatisDAO<Record, Serializable> {
 		SqlAdapter sqlAdapter = new SqlAdapter(sql);
 		return this.getSqlSession().selectList(SQL_MAP+".findBySql", sqlAdapter);
 	}
+	
+	public int updateBySql(String sql) {
+		SqlAdapter sqlAdapter = new SqlAdapter(sql);
+		return this.getSqlSession().update(SQL_MAP+".updateBySql", sqlAdapter);
+	}
+	
+	public int deleteBySql(String sql) {
+		SqlAdapter sqlAdapter = new SqlAdapter(sql);
+		return this.getSqlSession().update(SQL_MAP+".deleteBySql", sqlAdapter);
+	}
 }

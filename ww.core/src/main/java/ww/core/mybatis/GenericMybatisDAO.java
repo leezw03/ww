@@ -12,8 +12,8 @@ import ww.core.mvc.pojo.QueryParam;
 
 public abstract class GenericMybatisDAO<T, ID extends Serializable> extends SqlSessionDaoSupport implements IGenericDAO<T, ID> {
 	
-	private final static String SQL_MAP = "_Generic_";
-
+	
+	
 	public void insert(T entity) {
 		
 	}
