@@ -29,11 +29,11 @@ public class DaoTest extends AbstractJUnit4SpringContextTests {
 		List<DbRecord> list = mybatisDAO.findBySql("SELECT 'ABS' AS NAME FROM DUAL");
 		System.out.println(JSONArray.toJSON(list));
 	}
-	@Test
+	
 	public void testUpdate() {
 		MybatisDAO mybatisDAO = (MybatisDAO)BeanUtils.get("MybatisDAO");
-		Pk pk = new Pk("CUID", "T_SYS_LOG-8aac7fc651f3fd460151f427faaf0009");
-		Record r = new Record("T_SYS_LOG");
+		Pk pk = new Pk("T_SYS_LOG", "CUID", "T_SYS_LOG-8aac7fc651f3fd460151f427faaf0009");
+		Record r = new Record(pk);
 		r.addData("RES_NAME", "123");
 		r.addData("CREATE_TIME", new Date());
 		r.addSqlData("ACTION_TYPE", "SELECT 'ABC' FROM DUAL");
@@ -48,5 +48,17 @@ public class DaoTest extends AbstractJUnit4SpringContextTests {
 		r.addData("CREATE_TIME", new Date());
 		r.addSqlData("ACTION_TYPE", "SELECT 'ABC' FROM DUAL");
 		mybatisDAO.insert(r);
+	}
+	
+	public void testDelete() {
+		MybatisDAO mybatisDAO = (MybatisDAO)BeanUtils.get("MybatisDAO");
+		Pk pk = new Pk("T_SYS_LOG", "CUID", "T_SYS_LOG-8aac7fc651f3fd460151f427faaf0010");
+		mybatisDAO.delete(pk);
+	}
+	@Test
+	public void testGet() {
+		MybatisDAO mybatisDAO = (MybatisDAO)BeanUtils.get("MybatisDAO");
+		Pk pk = new Pk("T_SYS_LOG", "CUID", "T_SYS_LOG-8aac7fc651f3fd460151f427faaf0009");
+		Record r = mybatisDAO.get(pk);
 	}
 }

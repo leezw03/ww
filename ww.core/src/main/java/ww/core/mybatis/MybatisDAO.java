@@ -26,6 +26,24 @@ public class MybatisDAO extends GenericMybatisDAO<Record, Pk> {
 	public void insert(Record r) {
 		this.getSqlSession().insert(getSqlMap()+".insertRecord", r);
 	}
+	
+	@Override
+	public int delete(Pk pk) {
+		Record r = new Record(pk);
+		return this.getSqlSession().delete(getSqlMap()+".deleteRecord", r);
+	}
+	
+	@Override
+	public Record get(Pk pk) {
+		Record r = new Record(pk);
+		DbRecord dbRecord = this.getSqlSession().selectOne(getSqlMap()+".getRecord", r);
+		if(dbRecord != null) {
+			r.setDatas(dbRecord);
+		} else {
+			r = null;
+		}
+		return r;
+	}
 
 	public List<DbRecord> findBySql(String sql) {
 		SqlAdapter sqlAdapter = new SqlAdapter(sql);

@@ -15,19 +15,19 @@ public abstract class GenericMybatisDAO<T, ID extends Serializable> extends SqlS
 	protected abstract String getSqlMap();
 	
 	public void insert(T entity) {
-		
+		this.getSqlSession().insert(getSqlMap()+".insertEntity", entity);
 	}
     
     public int update(T entity) {
-    	return 0;
+    	return this.getSqlSession().update(getSqlMap()+".updateEntity", entity);
     }
     
     public int delete(ID primaryKey) {
-    	return 0;
+    	return this.getSqlSession().delete(getSqlMap()+".deleteEntity", primaryKey);
     }
     
     public T get(ID id) {
-    	return null;
+    	return this.getSqlSession().selectOne(getSqlMap()+".getEntity", id);
     }
     
     public T load(ID id) throws DataAccessException {

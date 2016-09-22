@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
 <mapper namespace="_Mybatis_">
 
-	<select id="findBySql" parameterType="sqlAdapter" resultType="ww.core.mybatis.pojo.DbRecord">
+	<select id="findBySql" parameterType="sqlAdapter" resultType="dbRecord">
 		${sql}
 	</select>
 	
@@ -57,4 +57,32 @@
 		</foreach>
 		)
 	</insert>
+	
+	<delete id="deleteRecord" parameterType="record">
+		DELETE FROM ${table} WHERE
+		<choose>
+			<when test="pk != null and pk.colList!=null and pk.colList.size()>0">
+            	<foreach collection="pk.colList" item="pkCol" separator="AND">
+            		${pkCol.name} = #{pkCol.value}
+            	</foreach>
+			</when>
+			<otherwise>
+				1=2
+            </otherwise>
+		</choose>
+	</delete>
+	
+	<select id="getRecord" parameterType="record" resultType="dbRecord">
+		SELECT T.* FROM ${table} WHERE
+		<choose>
+			<when test="pk != null and pk.colList!=null and pk.colList.size()>0">
+            	<foreach collection="pk.colList" item="pkCol" separator="AND">
+            		${pkCol.name} = #{pkCol.value}
+            	</foreach>
+			</when>
+			<otherwise>
+				1=2
+            </otherwise>
+		</choose>
+	</select>
 </mapper>

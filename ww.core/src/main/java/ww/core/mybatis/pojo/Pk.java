@@ -9,15 +9,18 @@ import com.sun.tools.javac.util.StringUtils;
 public class Pk implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+	
+	private final String table;
 
 	private List<PkCol> colList;
 	
-	public Pk() {
+	public Pk(String table) {
+		this.table = StringUtils.toUpperCase(table);
 		this.colList = new ArrayList<PkCol>();
 	}
 	
-	public Pk(String name, Object value) {
-		this();
+	public Pk(String table, String name, Object value) {
+		this(table);
 		this.add(name, value);
 	}
 	
@@ -28,6 +31,10 @@ public class Pk implements Serializable {
 	
 	public List<PkCol> getColList() {
 		return colList;
+	}
+
+	public String getTable() {
+		return table;
 	}
 
 	public class PkCol {

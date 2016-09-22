@@ -4,23 +4,24 @@ import java.io.Serializable;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import com.sun.tools.javac.util.StringUtils;
-
 public class Record implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
-	private final String table;
 	private Pk pk;
 	private final Map<String, RecordValue> values;
+	
+	private Record() {
+		this.values = new LinkedHashMap<String, RecordValue>();
+	}
 
 	public Record(String table) {
-		this(table, null);
+		this();
+		this.pk = new Pk(table);
 	}
 	
-	public Record(String table, Pk pk) {
-		this.table = StringUtils.toUpperCase(table);
-		this.values = new LinkedHashMap<String, RecordValue>();
+	public Record(Pk pk) {
+		this();
 		this.pk = pk;
 	}
 	
@@ -49,9 +50,9 @@ public class Record implements Serializable {
 	public void clear() {
 		this.values.clear();
 	}
-
+	
 	public String getTable() {
-		return table;
+		return this.getPk().getTable();
 	}
 
 	public Pk getPk() {

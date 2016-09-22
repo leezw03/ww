@@ -21,6 +21,7 @@
     <typeAliases>
     	<typeAlias alias="sqlAdapter" type="ww.core.mybatis.pojo.SqlAdapter" />
     	<typeAlias alias="record" type="ww.core.mybatis.pojo.Record" />
+    	<typeAlias alias="dbRecord" type="ww.core.mybatis.pojo.DbRecord" />
     </typeAliases>
     
     <mappers>
