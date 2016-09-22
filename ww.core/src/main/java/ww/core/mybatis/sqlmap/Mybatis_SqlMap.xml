@@ -16,11 +16,15 @@
 	
 	<update id="updateRecord" parameterType="record">
 		UPDATE ${table} SET
-		<foreach collection="values" index="key" separator=",">
-			${key} = #{values[key]}
-		</foreach>
-		<foreach collection="sqlValues" index="key" separator=",">
-			${key} = (${sqlValues[key]})
+		<foreach collection="values" index="key" item="value" separator=",">
+			<choose>
+				<when test="value.type == 'sql'">
+					${key} = (${value.value})
+				</when>
+				<otherwise>
+					${key} = #{value.value}
+				</otherwise>
+			</choose>
 		</foreach>
 		 WHERE
 		<choose>
@@ -34,4 +38,23 @@
             </otherwise>
 		</choose>
 	</update>
+	
+	<insert id="insertRecord" parameterType="record">
+		INSERT INTO ${table}
+		<foreach collection="values" index="key" open="(" separator="," close=")">
+			${key}
+		</foreach>
+		VALUES (
+		<foreach collection="values" index="key" item="value" separator=",">
+			<choose>
+				<when test="value.type == 'sql'">
+					(${value.value})
+				</when>
+				<otherwise>
+					#{value.value}
+				</otherwise>
+			</choose>
+		</foreach>
+		)
+	</insert>
 </mapper>

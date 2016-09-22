@@ -1,7 +1,7 @@
 package ww.core.mybatis.pojo;
 
 import java.io.Serializable;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import com.sun.tools.javac.util.StringUtils;
@@ -12,37 +12,42 @@ public class Record implements Serializable {
 	
 	private final String table;
 	private Pk pk;
-	private DbRecord values;
-	private Map<String, String> sqlValues;
+	private final Map<String, RecordValue> values;
 
 	public Record(String table) {
-		this.table = StringUtils.toUpperCase(table);
-		this.values = new DbRecord();
-		this.sqlValues = new HashMap<String, String>();
+		this(table, null);
 	}
 	
 	public Record(String table, Pk pk) {
-		this.table = table;
+		this.table = StringUtils.toUpperCase(table);
+		this.values = new LinkedHashMap<String, RecordValue>();
 		this.pk = pk;
 	}
 	
-	public void setDatas(DbRecord dbRecord) {
-		if(dbRecord != null) {
-			for(String key : dbRecord.keySet()) {
-				this.addData(key, dbRecord.get(key));
+	public void setDatas(Map<String, Object> map) {
+		if(map != null) {
+			for(String key : map.keySet()) {
+				this.addData(key, map.get(key));
 			}
 		}
 	}
 	
 	public void addData(String name, Object value) {
-		this.values.put(name, value);
+		RecordValue recordValue = new RecordValue(name, value);
+		this.values.put(name, recordValue);
 	}
 	
 	public void addSqlData(String name, String sql) {
-		if(this.sqlValues == null) {
-			this.sqlValues = new HashMap<String, String>();
-		}
-		this.sqlValues.put(name, sql);
+		RecordValue recordValue = new RecordValue(name, sql, RecordValue.TYPE_SQL);
+		this.values.put(name, recordValue);
+	}
+	
+	public void removeData(String name) {
+		this.values.remove(name);
+	}
+	
+	public void clear() {
+		this.values.clear();
 	}
 
 	public String getTable() {
@@ -57,11 +62,8 @@ public class Record implements Serializable {
 		this.pk = pk;
 	}
 
-	public DbRecord getValues() {
+	public Map<String, RecordValue> getValues() {
 		return values;
 	}
 
-	public Map<String, String> getSqlValues() {
-		return sqlValues;
-	}
 }

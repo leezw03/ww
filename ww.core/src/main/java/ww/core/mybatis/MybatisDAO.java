@@ -21,6 +21,11 @@ public class MybatisDAO extends GenericMybatisDAO<Record, Pk> {
 		r.setPk(pk);
 		return this.getSqlSession().update(getSqlMap()+".updateRecord", r);
 	}
+	
+	@Override
+	public void insert(Record r) {
+		this.getSqlSession().insert(getSqlMap()+".insertRecord", r);
+	}
 
 	public List<DbRecord> findBySql(String sql) {
 		SqlAdapter sqlAdapter = new SqlAdapter(sql);

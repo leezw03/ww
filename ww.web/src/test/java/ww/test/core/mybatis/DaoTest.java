@@ -36,6 +36,17 @@ public class DaoTest extends AbstractJUnit4SpringContextTests {
 		Record r = new Record("T_SYS_LOG");
 		r.addData("RES_NAME", "123");
 		r.addData("CREATE_TIME", new Date());
+		r.addSqlData("ACTION_TYPE", "SELECT 'ABC' FROM DUAL");
 		mybatisDAO.update(pk, r);
+	}
+	
+	public void testInsert() {
+		MybatisDAO mybatisDAO = (MybatisDAO)BeanUtils.get("MybatisDAO");
+		Record r = new Record("T_SYS_LOG");
+		r.addData("CUID", "T_SYS_LOG-8aac7fc651f3fd460151f427faaf0010");
+		r.addData("RES_NAME", "123");
+		r.addData("CREATE_TIME", new Date());
+		r.addSqlData("ACTION_TYPE", "SELECT 'ABC' FROM DUAL");
+		mybatisDAO.insert(r);
 	}
 }
