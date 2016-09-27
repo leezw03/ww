@@ -1,5 +1,6 @@
 package ww.test.core.mybatis;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -37,7 +38,27 @@ public class DaoTest extends AbstractJUnit4SpringContextTests {
 		r.addData("RES_NAME", "123");
 		r.addData("CREATE_TIME", new Date());
 		r.addSqlData("ACTION_TYPE", "SELECT 'ABC' FROM DUAL");
-		mybatisDAO.update(pk, r);
+		mybatisDAO.update(r);
+	}
+	
+	public void testUpdateBatch() {
+		MybatisDAO mybatisDAO = (MybatisDAO)BeanUtils.get("MybatisDAO");
+		Pk pk1 = new Pk("T_SYS_LOG", "CUID", "T_SYS_LOG-8aac7fc651f3fd460151f427faaf0009");
+		Record r1 = new Record(pk1);
+		r1.addData("RES_NAME", "123");
+		r1.addData("CREATE_TIME", new Date());
+		r1.addSqlData("ACTION_TYPE", "SELECT 'ABC' FROM DUAL");
+		
+		Pk pk2 = new Pk("T_SYS_LOG", "CUID", "T_SYS_LOG-8aac7fc651f3fd460151f427faaf0010");
+		Record r2 = new Record(pk2);
+		r2.addData("RES_NAME", "123");
+		r2.addData("CREATE_TIME", new Date());
+		r2.addSqlData("ACTION_TYPE", "SELECT 'ABC' FROM DUAL");
+		
+		List<Record> rList = new ArrayList<Record>();
+		rList.add(r1);
+		rList.add(r2);
+		mybatisDAO.batchUpdate(rList);
 	}
 	
 	public void testInsert() {
@@ -49,13 +70,33 @@ public class DaoTest extends AbstractJUnit4SpringContextTests {
 		r.addSqlData("ACTION_TYPE", "SELECT 'ABC' FROM DUAL");
 		mybatisDAO.insert(r);
 	}
+	@Test
+	public void testInsertBatch() {
+		MybatisDAO mybatisDAO = (MybatisDAO)BeanUtils.get("MybatisDAO");
+		Pk pk1 = new Pk("T_SYS_LOG", "CUID", "T_SYS_LOG-8aac7fc651f3fd460151f427faaf0011");
+		Record r1 = new Record(pk1);
+		r1.addData("RES_NAME", "123");
+		r1.addData("CREATE_TIME", new Date());
+		r1.addSqlData("ACTION_TYPE", "SELECT 'ABC' FROM DUAL");
+		
+		Pk pk2 = new Pk("T_SYS_LOG", "CUID", "T_SYS_LOG-8aac7fc651f3fd460151f427faaf0012");
+		Record r2 = new Record(pk2);
+		r2.addData("RES_NAME", "123");
+		r2.addData("CREATE_TIME", new Date());
+		r2.addSqlData("ACTION_TYPE", "SELECT 'ABC' FROM DUAL");
+		
+		List<Record> rList = new ArrayList<Record>();
+		rList.add(r1);
+		rList.add(r2);
+		mybatisDAO.batchInsert(rList);
+	}
 	
 	public void testDelete() {
 		MybatisDAO mybatisDAO = (MybatisDAO)BeanUtils.get("MybatisDAO");
 		Pk pk = new Pk("T_SYS_LOG", "CUID", "T_SYS_LOG-8aac7fc651f3fd460151f427faaf0010");
 		mybatisDAO.delete(pk);
 	}
-	@Test
+	
 	public void testGet() {
 		MybatisDAO mybatisDAO = (MybatisDAO)BeanUtils.get("MybatisDAO");
 		Pk pk = new Pk("T_SYS_LOG", "CUID", "T_SYS_LOG-8aac7fc651f3fd460151f427faaf0009");

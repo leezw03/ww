@@ -4,8 +4,8 @@ import java.io.Serializable;
 import java.util.List;
 
 import org.mybatis.spring.support.SqlSessionDaoSupport;
-import org.springframework.dao.DataAccessException;
 
+import ww.core.exception.DataAccessException;
 import ww.core.mvc.dao.IGenericDAO;
 import ww.core.mvc.pojo.PageParam;
 import ww.core.mvc.pojo.QueryParam;
@@ -31,19 +31,29 @@ public abstract class GenericMybatisDAO<T, ID extends Serializable> extends SqlS
     }
     
     public T load(ID id) throws DataAccessException {
-    	return null;
+    	T entity = this.get(id);
+    	if(entity == null) {
+    		throw new DataAccessException(String.format("未找到数据（ID：%s）！", id.toString()));
+    	}
+    	return entity;
     }
     
     public void batchInsert(final List<T> list) {
-    	
+    	if(!list.isEmpty()) {
+    		this.getSqlSession().insert(getSqlMap()+".batchInsertEntity", list);
+    	}
     }
     
     public void batchUpdate(final List<T> list) {
-    	
+    	if(!list.isEmpty()) {
+    		this.getSqlSession().update(getSqlMap()+".batchUpdateEntity", list);
+    	}
     }
     
     public void batchDelete(final List<ID> list) {
-    	
+    	if(!list.isEmpty()) {
+    		this.getSqlSession().delete(getSqlMap()+".batchDeleteEntity", list);
+    	}
     }
     
     public int count(QueryParam queryParam) {

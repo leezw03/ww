@@ -2,8 +2,10 @@ package ww.core.mybatis;
 
 import java.util.List;
 
+import ww.core.exception.DataAccessException;
 import ww.core.mybatis.pojo.DbRecord;
 import ww.core.mybatis.pojo.Pk;
+import ww.core.mybatis.pojo.Pk.PkCol;
 import ww.core.mybatis.pojo.Record;
 import ww.core.mybatis.pojo.SqlAdapter;
 
@@ -17,26 +19,39 @@ public class MybatisDAO extends GenericMybatisDAO<Record, Pk> {
 	}
 	
 	@Override
-	public int update(Pk pk, Record r) {
-		r.setPk(pk);
-		return this.getSqlSession().update(getSqlMap()+".updateRecord", r);
-	}
-	
-	@Override
 	public void insert(Record r) {
-		this.getSqlSession().insert(getSqlMap()+".insertRecord", r);
+		if(r.getPk() != null) {
+			for(PkCol pkCol : r.getPk().getColList()) {
+				r.addData(pkCol.getName(), pkCol.getValue());
+			}
+		}
+		super.insert(r);
 	}
 	
 	@Override
-	public int delete(Pk pk) {
-		Record r = new Record(pk);
-		return this.getSqlSession().delete(getSqlMap()+".deleteRecord", r);
+	public int update(Record r) {
+		if(r.getPk() == null) {
+			throw new DataAccessException("主键不能为空！");
+		}
+		return super.update(r);
+	}
+	
+	@Override
+	public void batchInsert(List<Record> list) {
+		for(Record r : list) {
+			if(r.getPk() != null) {
+				for(PkCol pkCol : r.getPk().getColList()) {
+					r.addData(pkCol.getName(), pkCol.getValue());
+				}
+			}
+		}
+		super.batchInsert(list);
 	}
 	
 	@Override
 	public Record get(Pk pk) {
 		Record r = new Record(pk);
-		DbRecord dbRecord = this.getSqlSession().selectOne(getSqlMap()+".getRecord", r);
+		DbRecord dbRecord = this.getSqlSession().selectOne(getSqlMap()+".getEntity", r);
 		if(dbRecord != null) {
 			r.setDatas(dbRecord);
 		} else {

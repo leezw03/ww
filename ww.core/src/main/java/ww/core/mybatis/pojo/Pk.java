@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.sun.tools.javac.util.StringUtils;
+import org.apache.commons.lang.StringUtils;
 
 public class Pk implements Serializable {
 
@@ -15,7 +15,7 @@ public class Pk implements Serializable {
 	private List<PkCol> colList;
 	
 	public Pk(String table) {
-		this.table = StringUtils.toUpperCase(table);
+		this.table = StringUtils.upperCase(table);
 		this.colList = new ArrayList<PkCol>();
 	}
 	
@@ -36,6 +36,14 @@ public class Pk implements Serializable {
 	public String getTable() {
 		return table;
 	}
+	
+	public String toString() {
+		List<String> colStrList = new ArrayList<String>();
+		for(PkCol col : colList) {
+			colStrList.add(col.toString());
+		}
+		return StringUtils.join(colStrList, ";");
+	}
 
 	public class PkCol {
 		
@@ -44,7 +52,7 @@ public class Pk implements Serializable {
 		private Object value;
 		
 		public PkCol(String name, Object value) {
-			this.name = StringUtils.toUpperCase(name);
+			this.name = StringUtils.upperCase(name);
 			this.value = value;
 		}
 
@@ -64,5 +72,8 @@ public class Pk implements Serializable {
 			this.value = value;
 		}
 		
+		public String toString() {
+			return StringUtils.trimToEmpty(this.getName())+"="+this.value != null?this.value.toString():"";
+		}
 	}
 }
