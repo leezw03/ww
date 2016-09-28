@@ -13,11 +13,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.fastjson.JSONArray;
 
-import ww.core.mybatis.MybatisDAO;
-import ww.core.mybatis.pojo.DbRecord;
-import ww.core.mybatis.pojo.Pk;
-import ww.core.mybatis.pojo.Record;
 import ww.core.spring.BeanUtils;
+import ww.db.mybatis.MybatisDAO;
+import ww.db.mybatis.pojo.DbRecord;
+import ww.db.mybatis.pojo.Pk;
+import ww.db.mybatis.pojo.Record;
 
 @ContextConfiguration(locations = { "classpath*:ww/config/spring/spring-*.xml",
 		"classpath*:ww/config/webonly/spring/spring-*.xml", "classpath*:config/spring/spring-*.xml" })
