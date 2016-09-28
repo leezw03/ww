@@ -19,10 +19,10 @@
     </settings>
     
     <typeAliases>
-    	<typeAlias alias="sqlAdapter" type="ww.core.mybatis.pojo.SqlAdapter" />
-    	<typeAlias alias="record" type="ww.core.mybatis.pojo.Record" />
-    	<typeAlias alias="dbRecord" type="ww.core.mybatis.pojo.DbRecord" />
-    	<typeAlias alias="pk" type="ww.core.mybatis.pojo.Pk" />
+    	<typeAlias alias="sqlAdapter" type="ww.db.mybatis.pojo.SqlAdapter" />
+    	<typeAlias alias="record" type="ww.db.mybatis.pojo.Record" />
+    	<typeAlias alias="dbRecord" type="ww.db.mybatis.pojo.DbRecord" />
+    	<typeAlias alias="pk" type="ww.db.mybatis.pojo.Pk" />
     </typeAliases>
     
     <mappers>

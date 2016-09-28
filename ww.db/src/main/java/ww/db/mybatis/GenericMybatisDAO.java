@@ -3,6 +3,9 @@ package ww.db.mybatis;
 import java.io.Serializable;
 import java.util.List;
 
+import org.apache.ibatis.session.ExecutorType;
+import org.apache.ibatis.session.SqlSession;
+import org.mybatis.spring.SqlSessionTemplate;
 import org.mybatis.spring.support.SqlSessionDaoSupport;
 
 import ww.core.mvc.pojo.PageParam;
@@ -40,7 +43,18 @@ public abstract class GenericMybatisDAO<T, ID extends Serializable> extends SqlS
     
     public void batchInsert(final List<T> list) {
     	if(!list.isEmpty()) {
-    		this.getSqlSession().insert(getSqlMap()+".batchInsertEntity", list);
+	    	SqlSessionTemplate sqlSessionTemplate = null;
+	    	SqlSession sqlSession = this.getSqlSession();
+	    	if(sqlSession instanceof SqlSessionTemplate) {
+	    		sqlSessionTemplate = (SqlSessionTemplate) sqlSession;
+	    	}
+	    	if(sqlSessionTemplate != null) {
+	    		SqlSession session = sqlSessionTemplate.getSqlSessionFactory().openSession(ExecutorType.BATCH, false);
+	    		for(T entity : list) {
+	    			sqlSessionTemplate.insert(getSqlMap()+".insertEntity", entity);
+	    		}
+	    		session.commit();
+	    	}
     	}
     }
     
@@ -67,4 +81,5 @@ public abstract class GenericMybatisDAO<T, ID extends Serializable> extends SqlS
     public List<T> find(PageParam pageParam, QueryParam queryParam) {
     	return null;
     }
+    
 }
