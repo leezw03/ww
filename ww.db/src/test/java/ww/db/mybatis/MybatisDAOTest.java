@@ -1,30 +1,22 @@
-package ww.test.core.mybatis;
+package ww.db.mybatis;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.fastjson.JSONArray;
 
 import ww.core.spring.BeanUtils;
-import ww.db.mybatis.MybatisDAO;
 import ww.db.mybatis.pojo.DbRecord;
 import ww.db.mybatis.pojo.Pk;
 import ww.db.mybatis.pojo.Record;
+import ww.test.AbstractTests;
 
-@ContextConfiguration(locations = { "classpath*:ww/config/spring/spring-*.xml",
-		"classpath*:ww/config/webonly/spring/spring-*.xml", "classpath*:config/spring/spring-*.xml" })
-@RunWith(SpringJUnit4ClassRunner.class)
-@Transactional
-public class DaoTest extends AbstractJUnit4SpringContextTests {
+public class MybatisDAOTest extends AbstractTests {
 
+	@Test
 	public void testFindBySql(){
 		MybatisDAO mybatisDAO = (MybatisDAO)BeanUtils.get("MybatisDAO");
 		List<DbRecord> list = mybatisDAO.findBySql("SELECT 'ABS' AS NAME FROM DUAL");
@@ -70,7 +62,7 @@ public class DaoTest extends AbstractJUnit4SpringContextTests {
 		r.addSqlData("ACTION_TYPE", "SELECT 'ABC' FROM DUAL");
 		mybatisDAO.insert(r);
 	}
-	@Test
+	
 	public void testInsertBatch() {
 		MybatisDAO mybatisDAO = (MybatisDAO)BeanUtils.get("MybatisDAO");
 		Pk pk1 = new Pk("T_SYS_LOG", "CUID", "T_SYS_LOG-8aac7fc651f3fd460151f427faaf0013");

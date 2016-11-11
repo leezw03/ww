@@ -60,16 +60,29 @@ public class MybatisDAO extends GenericMybatisDAO<Record, Pk> {
 		return r;
 	}
 
+	/**
+	 * 根据sql查询
+	 * @param sql
+	 * @return
+	 */
 	public List<DbRecord> findBySql(String sql) {
 		SqlAdapter sqlAdapter = new SqlAdapter(sql);
 		return this.getSqlSession().selectList(this.getSqlMap()+".findBySql", sqlAdapter);
 	}
-	
+	/**
+	 * 根据sql更新
+	 * @param sql
+	 * @return
+	 */
 	public int updateBySql(String sql) {
 		SqlAdapter sqlAdapter = new SqlAdapter(sql);
 		return this.getSqlSession().update(this.getSqlMap()+".updateBySql", sqlAdapter);
 	}
-	
+	/**
+	 * 根据sql删除
+	 * @param sql
+	 * @return
+	 */
 	public int deleteBySql(String sql) {
 		SqlAdapter sqlAdapter = new SqlAdapter(sql);
 		return this.getSqlSession().delete(this.getSqlMap()+".deleteBySql", sqlAdapter);
