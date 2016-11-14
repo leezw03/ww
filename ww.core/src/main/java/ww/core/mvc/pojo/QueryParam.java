@@ -8,20 +8,20 @@ public class QueryParam {
 	/**
 	 * 查询条件
 	 */
-	private List<IQueryCondition> conditionList;
+	private List<Object> conditionList;
 	/**
 	 * 排序
 	 */
 	private String sort;
 	
 	public QueryParam() {
-		this.conditionList = new ArrayList<IQueryCondition>();
+		this.conditionList = new ArrayList<Object>();
 	}
 	
-	public List<IQueryCondition> getConditionList() {
+	public List<Object> getConditionList() {
 		return conditionList;
 	}
-	public void setConditionList(List<IQueryCondition> conditionList) {
+	public void setConditionList(List<Object> conditionList) {
 		this.conditionList = conditionList;
 	}
 	public String getSort() {
