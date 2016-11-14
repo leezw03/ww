@@ -1,19 +1,23 @@
 package ww.db.mybatis;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.ibatis.session.RowBounds;
 
 import ww.core.mvc.pojo.PageParam;
 import ww.db.exception.DataAccessException;
 import ww.db.mybatis.pojo.DbRecord;
+import ww.db.mybatis.pojo.GenericQueryParam;
 import ww.db.mybatis.pojo.Pk;
 import ww.db.mybatis.pojo.Pk.PkCol;
-import ww.db.mybatis.pojo.QueryParam;
 import ww.db.mybatis.pojo.Record;
 import ww.db.mybatis.pojo.SqlAdapter;
+import ww.db.sql.pojo.SqlCondition;
+import ww.db.sql.utils.SqlConditionTool;
 
 public class MybatisDAO extends AbsMybatisDAO<Record, Pk> {
 	
@@ -70,7 +74,7 @@ public class MybatisDAO extends AbsMybatisDAO<Record, Pk> {
 	 * @param queryParam
 	 * @return
 	 */
-	public int countByParam(QueryParam queryParam) {
+	public int countByParam(GenericQueryParam queryParam) {
 		Map<String, Object> param = this.parseQueryParam(queryParam);
 		return super.count(param);
 	}
@@ -79,7 +83,7 @@ public class MybatisDAO extends AbsMybatisDAO<Record, Pk> {
 	 * @param queryParam
 	 * @return
 	 */
-	public List<DbRecord> findByParam(QueryParam queryParam) {
+	public List<DbRecord> findByParam(GenericQueryParam queryParam) {
 		return this.findByParam(null, queryParam);
 	}
 	/**
@@ -88,7 +92,7 @@ public class MybatisDAO extends AbsMybatisDAO<Record, Pk> {
 	 * @param queryParam
 	 * @return
 	 */
-	public List<DbRecord> findByParam(PageParam pageParam, QueryParam queryParam) {
+	public List<DbRecord> findByParam(PageParam pageParam, GenericQueryParam queryParam) {
 		Map<String, Object> param = this.parseQueryParam(queryParam);
 		if(pageParam != null) {
 			RowBounds bounds = new RowBounds(pageParam.getStart(), pageParam.getLimit());
@@ -98,10 +102,20 @@ public class MybatisDAO extends AbsMybatisDAO<Record, Pk> {
 		}
 	}
 	
-	private Map<String, Object> parseQueryParam(QueryParam queryParam) {
+	private Map<String, Object> parseQueryParam(GenericQueryParam queryParam) {
 		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("_table", queryParam.getTable());
+		param.put("_columnList", queryParam.getColumnList());
 		param.put("_sort", queryParam.getSort());
-		param.put("_conditionList", queryParam.getConditionList());
+		List<String> _conditionList = new ArrayList<String>();
+		List<SqlCondition> conditionList = new ArrayList<SqlCondition>();
+		for(SqlCondition condition : conditionList) {
+			String text = SqlConditionTool.getInstance(this.getDbType()).getConditionText(condition);
+			if(StringUtils.isNotBlank(text)) {
+				_conditionList.add(text);
+			}
+		}
+		param.put("_conditionList", _conditionList);
 		if(queryParam.getVarMap() != null) {
 			param.putAll(queryParam.getVarMap());
 		}

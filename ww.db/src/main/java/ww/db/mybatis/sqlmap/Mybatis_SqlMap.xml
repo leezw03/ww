@@ -149,7 +149,7 @@
 	</delete>
 	
 	<select id="getEntity" parameterType="record" resultType="dbRecord">
-		SELECT T.* FROM ${table} WHERE
+		SELECT T.* FROM ${table} T WHERE
 		<choose>
 			<when test="pk != null and pk.colList!=null and pk.colList.size()>0">
             	<foreach collection="pk.colList" item="pkCol" separator="AND">
@@ -161,4 +161,47 @@
             </otherwise>
 		</choose>
 	</select>
+	
+	<sql id="sql_colByParam">
+		<choose>
+			<when test="_columnList != null and _columnList.size() > 0">
+				<foreach collection="_columnList" item="_column" separator=",">
+					${_column}
+				</foreach>
+			</when>
+			<otherwise>
+				*
+			</otherwise>
+		</choose>
+	</sql>
+	
+	<sql id="sql_conditionByParam">
+		<if test="_conditionList != null and _conditionList.size() > 0">
+			<foreach collection="_conditionList" item="_condition" separator=" AND ">
+				${_condition}
+			</foreach>
+		</if>
+	</sql>
+	
+	<sql id="sql_sort">
+		<if test="_sort != null">
+			ORDER BY ${_sort}
+		</if>
+	</sql>
+	
+	<select id="countEntity" parameterType="java.util.Map" resultType="dbRecord">
+		SELECT COUNT(*)
+		  FROM ${_table}
+		 WHERE 1=1
+		<include refid="sql_conditionByParam"></include>
+	</select>
+	
+	<select id="findEntity" parameterType="java.util.Map" resultType="dbRecord">
+		SELECT <include refid="sql_colByParam"></include>
+		  FROM ${_table}
+		 WHERE 1=1
+		<include refid="sql_conditionByParam"></include>
+		<include refid="sql_sort"></include>
+	</select>
+	
 </mapper>

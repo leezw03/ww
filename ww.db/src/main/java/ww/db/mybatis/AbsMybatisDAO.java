@@ -11,6 +11,7 @@ import org.mybatis.spring.support.SqlSessionDaoSupport;
 
 import ww.core.mvc.pojo.PageParam;
 import ww.db.dao.IGenericDAO;
+import ww.db.em.DbType;
 import ww.db.exception.DataAccessException;
 
 public abstract class AbsMybatisDAO<T, ID extends Serializable> extends SqlSessionDaoSupport implements IGenericDAO<T, ID> {
@@ -79,8 +80,15 @@ public abstract class AbsMybatisDAO<T, ID extends Serializable> extends SqlSessi
     }
     
     public List<T> find(PageParam pageParam, Object queryParam) {
+    	if(pageParam == null) {
+    		throw new IllegalArgumentException("分页条件不能为空！");
+    	}
     	RowBounds bounds = new RowBounds(pageParam.getStart(), pageParam.getLimit());
     	return this.getSqlSession().selectList(getSqlMap()+".findEntity", queryParam, bounds);
     }
     
+    public DbType getDbType() {
+    	String databaseId = this.getSqlSession().getConfiguration().getDatabaseId();
+    	return DbType.get(databaseId);
+    }
 }
