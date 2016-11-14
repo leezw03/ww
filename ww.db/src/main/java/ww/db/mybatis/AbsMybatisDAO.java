@@ -13,8 +13,8 @@ import ww.core.mvc.pojo.PageParam;
 import ww.db.dao.IGenericDAO;
 import ww.db.exception.DataAccessException;
 
-public abstract class GenericMybatisDAO<T, ID extends Serializable> extends SqlSessionDaoSupport implements IGenericDAO<T, ID> {
-	
+public abstract class AbsMybatisDAO<T, ID extends Serializable> extends SqlSessionDaoSupport implements IGenericDAO<T, ID> {
+
 	protected abstract String getSqlMap();
 	
 	public void insert(T entity) {

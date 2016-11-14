@@ -15,7 +15,7 @@ import ww.db.mybatis.pojo.QueryParam;
 import ww.db.mybatis.pojo.Record;
 import ww.db.mybatis.pojo.SqlAdapter;
 
-public class MybatisDAO extends GenericMybatisDAO<Record, Pk> {
+public class MybatisDAO extends AbsMybatisDAO<Record, Pk> {
 	
 	private static final String SQL_MAP = "_Mybatis_";
 	
