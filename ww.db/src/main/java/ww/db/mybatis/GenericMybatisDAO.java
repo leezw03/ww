@@ -4,12 +4,12 @@ import java.io.Serializable;
 import java.util.List;
 
 import org.apache.ibatis.session.ExecutorType;
+import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.mybatis.spring.support.SqlSessionDaoSupport;
 
 import ww.core.mvc.pojo.PageParam;
-import ww.core.mvc.pojo.QueryParam;
 import ww.db.dao.IGenericDAO;
 import ww.db.exception.DataAccessException;
 
@@ -70,16 +70,17 @@ public abstract class GenericMybatisDAO<T, ID extends Serializable> extends SqlS
     	}
     }
     
-    public int count(QueryParam queryParam) {
-    	return 0;
+    public int count(Object queryParam) {
+    	return this.getSqlSession().selectOne(getSqlMap()+".countEntity", queryParam);
     }
     
-    public List<T> find(QueryParam queryParam) {
-    	return null;
+    public List<T> find(Object queryParam) {
+    	return this.getSqlSession().selectList(getSqlMap()+".findEntity", queryParam);
     }
     
-    public List<T> find(PageParam pageParam, QueryParam queryParam) {
-    	return null;
+    public List<T> find(PageParam pageParam, Object queryParam) {
+    	RowBounds bounds = new RowBounds(pageParam.getStart(), pageParam.getLimit());
+    	return this.getSqlSession().selectList(getSqlMap()+".findEntity", queryParam, bounds);
     }
     
 }

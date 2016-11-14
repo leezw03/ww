@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.dao.DataAccessException;
 
 import ww.core.mvc.pojo.PageParam;
-import ww.core.mvc.pojo.QueryParam;
 
 /**
  * IGenericDao DAO层泛型接口，定义基本的DAO功能
@@ -73,19 +72,19 @@ public abstract interface IGenericDAO<T, ID extends Serializable> {
      * @param queryParam 查询条件
      * @return 查询数量
      */
-    public abstract int count(QueryParam queryParam);
+    public abstract int count(Object queryParam);
     
     /**
      * 查询数据
      * @param queryParam 查询条件
      * @return 全部记录实体对象的List
      */
-    public abstract List<T> find(QueryParam queryParam);
+    public abstract List<T> find(Object queryParam);
     /**
      * 分页查询数据
      * @param pageParam 分页参数
      * @param queryParam 查询条件
      * @return 查询的实体集合。
      */
-    public abstract List<T> find(PageParam pageParam, QueryParam queryParam);
+    public abstract List<T> find(PageParam pageParam, Object queryParam);
 }

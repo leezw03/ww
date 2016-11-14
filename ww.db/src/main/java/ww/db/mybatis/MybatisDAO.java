@@ -1,11 +1,17 @@
 package ww.db.mybatis;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import org.apache.ibatis.session.RowBounds;
+
+import ww.core.mvc.pojo.PageParam;
 import ww.db.exception.DataAccessException;
 import ww.db.mybatis.pojo.DbRecord;
 import ww.db.mybatis.pojo.Pk;
 import ww.db.mybatis.pojo.Pk.PkCol;
+import ww.db.mybatis.pojo.QueryParam;
 import ww.db.mybatis.pojo.Record;
 import ww.db.mybatis.pojo.SqlAdapter;
 
@@ -59,6 +65,48 @@ public class MybatisDAO extends GenericMybatisDAO<Record, Pk> {
 		}
 		return r;
 	}
+	/**
+	 * 统计查询数量
+	 * @param queryParam
+	 * @return
+	 */
+	public int countByParam(QueryParam queryParam) {
+		Map<String, Object> param = this.parseQueryParam(queryParam);
+		return super.count(param);
+	}
+	/**
+	 * 查询表
+	 * @param queryParam
+	 * @return
+	 */
+	public List<DbRecord> findByParam(QueryParam queryParam) {
+		return this.findByParam(null, queryParam);
+	}
+	/**
+	 * 查询表并分页
+	 * @param pageParam
+	 * @param queryParam
+	 * @return
+	 */
+	public List<DbRecord> findByParam(PageParam pageParam, QueryParam queryParam) {
+		Map<String, Object> param = this.parseQueryParam(queryParam);
+		if(pageParam != null) {
+			RowBounds bounds = new RowBounds(pageParam.getStart(), pageParam.getLimit());
+			return this.getSqlSession().selectList(getSqlMap()+".findEntity", param, bounds);
+		} else {
+			return this.getSqlSession().selectList(getSqlMap()+".findEntity", param);
+		}
+	}
+	
+	private Map<String, Object> parseQueryParam(QueryParam queryParam) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("_sort", queryParam.getSort());
+		param.put("_conditionList", queryParam.getConditionList());
+		if(queryParam.getVarMap() != null) {
+			param.putAll(queryParam.getVarMap());
+		}
+		return param;
+	}
 
 	/**
 	 * 根据sql查询
@@ -87,4 +135,5 @@ public class MybatisDAO extends GenericMybatisDAO<Record, Pk> {
 		SqlAdapter sqlAdapter = new SqlAdapter(sql);
 		return this.getSqlSession().delete(this.getSqlMap()+".deleteBySql", sqlAdapter);
 	}
+	
 }
