@@ -10,13 +10,14 @@ import com.alibaba.fastjson.JSONArray;
 
 import ww.core.spring.BeanUtils;
 import ww.db.mybatis.pojo.DbRecord;
+import ww.db.mybatis.pojo.GenericQueryParam;
 import ww.db.mybatis.pojo.Pk;
 import ww.db.mybatis.pojo.Record;
+import ww.db.sql.pojo.SqlCondition;
 import ww.test.AbstractTests;
 
 public class MybatisDAOTest extends AbstractTests {
 
-	@Test
 	public void testFindBySql(){
 		MybatisDAO mybatisDAO = (MybatisDAO)BeanUtils.get("MybatisDAO");
 		List<DbRecord> list = mybatisDAO.findBySql("SELECT 'ABS' AS NAME FROM DUAL");
@@ -93,5 +94,13 @@ public class MybatisDAOTest extends AbstractTests {
 		MybatisDAO mybatisDAO = (MybatisDAO)BeanUtils.get("MybatisDAO");
 		Pk pk = new Pk("T_SYS_LOG", "CUID", "T_SYS_LOG-8aac7fc651f3fd460151f427faaf0009");
 		Record r = mybatisDAO.get(pk);
+	}
+	
+	@Test
+	public void testFindByParam() {
+		MybatisDAO mybatisDAO = (MybatisDAO)BeanUtils.get("MybatisDAO");
+		GenericQueryParam queryParam = new GenericQueryParam("T_SYS_LOG");
+		queryParam.addCondition(new SqlCondition("CUID", "T_SYS_LOG-8aac7fc651f3fd460151f427faaf0009"));
+		mybatisDAO.findByParam(queryParam);
 	}
 }

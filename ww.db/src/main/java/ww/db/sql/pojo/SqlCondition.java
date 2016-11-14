@@ -32,7 +32,12 @@ public class SqlCondition {
 		this.value = value;
 	}
 	
-	public SqlCondition(String name, Object value, SqlExpression expression) {
+	public SqlCondition(String name, Object value, SqlValueType type) {
+		this.name = name;
+		this.value = value;
+	}
+	
+	public SqlCondition(String name, Object value, SqlValueType type, SqlExpression expression) {
 		this(name, value);
 		this.expression = expression;
 	}
