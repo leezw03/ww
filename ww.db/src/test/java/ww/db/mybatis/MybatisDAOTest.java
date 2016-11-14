@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.lang.time.DateUtils;
 import org.junit.Test;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 
 import ww.core.spring.BeanUtils;
@@ -13,6 +15,8 @@ import ww.db.mybatis.pojo.DbRecord;
 import ww.db.mybatis.pojo.GenericQueryParam;
 import ww.db.mybatis.pojo.Pk;
 import ww.db.mybatis.pojo.Record;
+import ww.db.sql.em.SqlExpression;
+import ww.db.sql.em.SqlValueType;
 import ww.db.sql.pojo.SqlCondition;
 import ww.test.AbstractTests;
 
@@ -99,8 +103,20 @@ public class MybatisDAOTest extends AbstractTests {
 	@Test
 	public void testFindByParam() {
 		MybatisDAO mybatisDAO = (MybatisDAO)BeanUtils.get("MybatisDAO");
-		GenericQueryParam queryParam = new GenericQueryParam("T_SYS_LOG");
-		queryParam.addCondition(new SqlCondition("CUID", "T_SYS_LOG-8aac7fc651f3fd460151f427faaf0009"));
-		mybatisDAO.findByParam(queryParam);
+		GenericQueryParam queryParam = new GenericQueryParam("USER");
+		//queryParam.addCondition(new SqlCondition("HOST", "localhost"));
+		//queryParam.addCondition(new SqlCondition("HOST", "local*", SqlValueType.string, SqlExpression.like));
+		Date now = new Date();
+		Date fromDate = DateUtils.addDays(now, -1);
+		Date toDate = DateUtils.addDays(now, 1);
+		//queryParam.addCondition(new SqlCondition("PASSWORD_LAST_CHANGED", new Date[]{fromDate, toDate}, SqlValueType.date, SqlExpression.between));
+		//queryParam.addCondition(new SqlCondition("PASSWORD_LAST_CHANGED", fromDate, SqlValueType.date, SqlExpression.ge));
+		//queryParam.addCondition(new SqlCondition("MAX_UPDATES", 10, SqlValueType.number, SqlExpression.le));
+		//queryParam.addCondition(new SqlCondition("_append1", "USER = 'root'", SqlValueType.string, SqlExpression.append));
+		//queryParam.addCondition(new SqlCondition("_exists1", "SELECT SERVER_NAME FROM SERVERS R WHERE R.SERVER_NAME = USER", SqlValueType.string, SqlExpression.exists));
+		//queryParam.addCondition(new SqlCondition("SELECT_PRIV", new String[]{"Y", "N"}, SqlValueType.string, SqlExpression.in));
+		queryParam.addCondition(new SqlCondition("SELECT_PRIV", new String[]{"1", "0"}, SqlValueType.number, SqlExpression.in));
+		List<DbRecord> list = mybatisDAO.findByParam(queryParam);
+		System.out.println(JSON.toJSONString(list));
 	}
 }

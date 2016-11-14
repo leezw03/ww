@@ -177,7 +177,7 @@
 	
 	<sql id="sql_conditionByParam">
 		<if test="_conditionList != null and _conditionList.size() > 0">
-			<foreach collection="_conditionList" item="_condition" separator=" AND ">
+			<foreach collection="_conditionList" item="_condition" separator=" AND " open=" AND (" close=")">
 				${_condition}
 			</foreach>
 		</if>

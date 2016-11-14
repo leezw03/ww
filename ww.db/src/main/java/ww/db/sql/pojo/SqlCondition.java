@@ -30,15 +30,16 @@ public class SqlCondition {
 	public SqlCondition(String name, Object value) {
 		this.name = name;
 		this.value = value;
+		this.type = SqlValueType.string;
 	}
 	
 	public SqlCondition(String name, Object value, SqlValueType type) {
-		this.name = name;
-		this.value = value;
+		this(name, value);
+		this.type = type;
 	}
 	
 	public SqlCondition(String name, Object value, SqlValueType type, SqlExpression expression) {
-		this(name, value);
+		this(name, value, type);
 		this.expression = expression;
 	}
 	
@@ -55,13 +56,13 @@ public class SqlCondition {
 		this.value = value;
 	}
 	public SqlValueType getType() {
-		return type;
+		return type==null?SqlValueType.string:type;
 	}
 	public void setType(SqlValueType type) {
 		this.type = type;
 	}
 	public SqlExpression getExpression() {
-		return expression;
+		return expression==null?SqlExpression.eq:expression;
 	}
 	public void setExpression(SqlExpression expression) {
 		this.expression = expression;

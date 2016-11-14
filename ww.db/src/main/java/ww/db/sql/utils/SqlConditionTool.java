@@ -16,6 +16,7 @@ import ww.db.sql.em.SqlExpression;
 import ww.db.sql.em.SqlValueType;
 import ww.db.sql.pojo.SqlCondition;
 
+@SuppressWarnings("unchecked")
 public class SqlConditionTool {
 
 	private volatile static Map<DbType, SqlConditionTool> instanceMap = new ConcurrentHashMap<DbType, SqlConditionTool>();
@@ -33,6 +34,7 @@ public class SqlConditionTool {
 		SqlConditionTool instance = instanceMap.get(dbType);
 		if(instance == null) {
 			synchronized(SqlConditionTool.class) {
+				instance = instanceMap.get(dbType);
 				if(instance == null) {
 					instance = new SqlConditionTool(dbType);
 					instanceMap.put(dbType, instance);
@@ -47,7 +49,7 @@ public class SqlConditionTool {
 		String sqlValue = this.getSqlValue(condition.getValue(), condition.getType(), condition.getExpression());
 		if(sqlValue != null) {
 			if(SqlExpression.append.equals(condition.getExpression())) {
-				conditionText = sqlValue;
+				conditionText = "("+sqlValue+")";
 			} else if(SqlExpression.exists.equals(condition.getExpression())) {
 				conditionText = condition.getExpression() + " " + "("+sqlValue+")";
 			} else if(SqlExpression.between.equals(condition.getExpression())) {
@@ -75,7 +77,7 @@ public class SqlConditionTool {
 				if(values.length == 2) {
 					Object leftValue = values[0], rightValue = values[1];
 					if(leftValue != null && rightValue != null) {
-						sqlValue += SqlExpression.between+" ";
+						sqlValue += " "+SqlExpression.between+" ";
 						sqlValue += this.getSqlValue(leftValue, valueType);
 						sqlValue += " AND ";
 						sqlValue += this.getSqlValue(rightValue, valueType);
@@ -96,8 +98,18 @@ public class SqlConditionTool {
 				for(Object val : values) {
 					sqlValueList.add(this.getSqlValue(val, valueType));
 				}
-				value = "("+StringUtils.join(sqlValueList, ",")+")";
+				sqlValue = "("+StringUtils.join(sqlValueList, ",")+")";
+			} else if(value instanceof List) {
+				List<String> sqlValueList = (List<String>) value;
+				sqlValue = "("+StringUtils.join(sqlValueList, ",")+")";
 			}
+		} else if(SqlExpression.like.equals(expression)) {
+			sqlValue = StringUtils.replace(value.toString(), "*", "%");
+			sqlValue = this.getSqlValue(sqlValue, valueType);
+		} else if(SqlExpression.append.equals(expression)) {
+			sqlValue = value.toString();
+		} else if(SqlExpression.exists.equals(expression)) {
+			sqlValue = value.toString();
 		} else {
 			sqlValue = this.getSqlValue(value, valueType);
 		}
@@ -135,24 +147,37 @@ public class SqlConditionTool {
 	}
 	
 	private String parseDateValue(Object value) {
-		return this.parseDateValue(value, DateUtils.FORMAT_SHORT);
-	}
-	
-	private String parseDatetimeValue(Object value) {
-		return this.parseDateValue(value, DateUtils.FORMAT_LONG);
-	}
-	
-	private String parseDateValue(Object value, String format) {
-		String result = "";
 		String dateStr = "";
 		if(value != null) {
 			if(value instanceof Date) {
 				Date date = (Date) value;
-				dateStr = DateUtils.format(date, format);
-			} else if(value instanceof String) {
+				dateStr = DateUtils.format(date, DateUtils.FORMAT_SHORT);
+			} else if(value instanceof String){
 				dateStr = (String) value;
+			} else {
+				throw new IllegalArgumentException("不是日期格式！");
 			}
 		}
+		return this.parseDateValue(dateStr);
+	}
+	
+	private String parseDatetimeValue(Object value) {
+		String dateStr = "";
+		if(value != null) {
+			if(value instanceof Date) {
+				Date date = (Date) value;
+				dateStr = DateUtils.format(date, DateUtils.FORMAT_LONG);
+			} else if(value instanceof String){
+				dateStr = (String) value;
+			} else {
+				throw new IllegalArgumentException("不是日期格式！");
+			}
+		}
+		return this.parseDateValue(dateStr);
+	}
+	
+	private String parseDateValue(String dateStr) {
+		String result = "";
 		if(StringUtils.isNotBlank(dateStr)) {
 			if(StringUtils.isNotBlank(funcToDate)) {
 				result = StringUtils.replace(funcToDate, "{d}", dateStr);
