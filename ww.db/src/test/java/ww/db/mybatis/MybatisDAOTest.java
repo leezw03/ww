@@ -10,6 +10,7 @@ import org.junit.Test;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 
+import ww.core.mvc.pojo.PageParam;
 import ww.core.spring.BeanUtils;
 import ww.db.mybatis.pojo.DbRecord;
 import ww.db.mybatis.pojo.GenericQueryParam;
@@ -100,7 +101,6 @@ public class MybatisDAOTest extends AbstractTests {
 		Record r = mybatisDAO.get(pk);
 	}
 	
-	@Test
 	public void testFindByParam() {
 		MybatisDAO mybatisDAO = (MybatisDAO)BeanUtils.get("MybatisDAO");
 		GenericQueryParam queryParam = new GenericQueryParam("USER");
@@ -117,6 +117,15 @@ public class MybatisDAOTest extends AbstractTests {
 		//queryParam.addCondition(new SqlCondition("SELECT_PRIV", new String[]{"Y", "N"}, SqlValueType.string, SqlExpression.in));
 		queryParam.addCondition(new SqlCondition("SELECT_PRIV", new String[]{"1", "0"}, SqlValueType.number, SqlExpression.in));
 		List<DbRecord> list = mybatisDAO.findByParam(queryParam);
+		System.out.println(JSON.toJSONString(list));
+	}
+	
+	@Test
+	public void testFindByPage() {
+		MybatisDAO mybatisDAO = (MybatisDAO)BeanUtils.get("MybatisDAO");
+		GenericQueryParam queryParam = new GenericQueryParam("USER");
+		PageParam page = new PageParam(2, 10);
+		List<DbRecord> list = mybatisDAO.findByParam(page, queryParam);
 		System.out.println(JSON.toJSONString(list));
 	}
 }
