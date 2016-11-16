@@ -84,16 +84,28 @@
 	<bean id="databaseIdProvider" class="org.apache.ibatis.mapping.VendorDatabaseIdProvider">  
 	    <property name="properties" ref="vendorProperties" />  
 	</bean>
-    
-    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-		<property name="dataSource" ref="dataSource"/>
-		<property name="configLocation" value="classpath:ww/config/mybatis/mybatis-config.xml"/>
+
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="configLocation"
+			value="classpath:ww/config/mybatis/mybatis-config.xml" />
 		<property name="databaseIdProvider" ref="databaseIdProvider" />
 		<property name="mapperLocations">
 			<list>
 				<value>classpath*:com/**/sqlmap/**/*_SqlMap.xml</value>
 				<value>classpath*:ww/**/sqlmap/**/*_SqlMap.xml</value>
 			</list>
+		</property>
+		<property name="plugins">
+			<array>
+				<bean class="com.github.pagehelper.PageHelper">
+					<property name="properties">
+						<value>
+							dialect=${db.dialect}
+						</value>
+					</property>
+				</bean>
+			</array>
 		</property>
 	</bean>
 	

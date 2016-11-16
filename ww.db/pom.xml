@@ -14,5 +14,65 @@
 			<artifactId>ww.core</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
+		<dependency>
+		    <groupId>com.github.jsqlparser</groupId>
+		    <artifactId>jsqlparser</artifactId>
+		    <version>0.9.6</version>
+		</dependency>
+		<!-- mybatis分页插件 -->
+		<dependency>
+		    <groupId>com.github.pagehelper</groupId>
+		    <artifactId>pagehelper</artifactId>
+		    <version>4.1.6</version>
+		</dependency>
+		<!-- mybatis -->
+	  	<dependency>
+	  		<groupId>org.mybatis</groupId>
+	  		<artifactId>mybatis</artifactId>
+	  		<version>3.2.7</version>
+	  	</dependency>
+	  	<dependency>
+	  		<groupId>org.mybatis</groupId>
+	  		<artifactId>mybatis-spring</artifactId>
+	  		<version>1.2.2</version>
+	  	</dependency>
+	  	<dependency>
+		    <groupId>com.alibaba</groupId>
+		    <artifactId>druid</artifactId>
+		    <version>1.0.25</version>
+		</dependency>
+		<dependency>
+			<groupId>com.googlecode.log4jdbc</groupId>
+			<artifactId>log4jdbc</artifactId>
+			<version>1.2</version>
+		</dependency>
+		<!-- db -->
+	  	<!-- 
+		<dependency>
+		    <groupId>com.oracle</groupId>
+		    <artifactId>ojdbc14</artifactId>
+		    <version>10.2.0.2.0</version>
+		</dependency>
+		 -->
+		<dependency>
+			<groupId>com.oracle</groupId>
+			<artifactId>ojdbc6</artifactId>
+			<version>11.2.0.4</version>
+		</dependency>
+		<dependency>
+		    <groupId>mysql</groupId>
+		    <artifactId>mysql-connector-java</artifactId>
+		    <version>5.1.6</version>
+		</dependency>
 	</dependencies>
+	
+	<repositories>
+	     <repository>
+	         <id>jsqlparser-snapshots</id>
+	         <snapshots>
+	             <enabled>true</enabled>
+	         </snapshots>
+	         <url>https://oss.sonatype.org/content/groups/public/</url>
+	     </repository>
+	</repositories>
 </project>

@@ -101,9 +101,10 @@ public class MybatisDAOTest extends AbstractTests {
 		Record r = mybatisDAO.get(pk);
 	}
 	
+	
 	public void testFindByParam() {
 		MybatisDAO mybatisDAO = (MybatisDAO)BeanUtils.get("MybatisDAO");
-		GenericQueryParam queryParam = new GenericQueryParam("USER");
+		GenericQueryParam queryParam = new GenericQueryParam("WF_OPERATOR");
 		//queryParam.addCondition(new SqlCondition("HOST", "localhost"));
 		//queryParam.addCondition(new SqlCondition("HOST", "local*", SqlValueType.string, SqlExpression.like));
 		Date now = new Date();
@@ -115,7 +116,7 @@ public class MybatisDAOTest extends AbstractTests {
 		//queryParam.addCondition(new SqlCondition("_append1", "USER = 'root'", SqlValueType.string, SqlExpression.append));
 		//queryParam.addCondition(new SqlCondition("_exists1", "SELECT SERVER_NAME FROM SERVERS R WHERE R.SERVER_NAME = USER", SqlValueType.string, SqlExpression.exists));
 		//queryParam.addCondition(new SqlCondition("SELECT_PRIV", new String[]{"Y", "N"}, SqlValueType.string, SqlExpression.in));
-		queryParam.addCondition(new SqlCondition("SELECT_PRIV", new String[]{"1", "0"}, SqlValueType.number, SqlExpression.in));
+		queryParam.addCondition(new SqlCondition("STATUS", new String[]{"1", "0"}, SqlValueType.number, SqlExpression.in));
 		List<DbRecord> list = mybatisDAO.findByParam(queryParam);
 		System.out.println(JSON.toJSONString(list));
 	}
@@ -123,8 +124,9 @@ public class MybatisDAOTest extends AbstractTests {
 	@Test
 	public void testFindByPage() {
 		MybatisDAO mybatisDAO = (MybatisDAO)BeanUtils.get("MybatisDAO");
-		GenericQueryParam queryParam = new GenericQueryParam("USER");
-		PageParam page = new PageParam(2, 10);
+		GenericQueryParam queryParam = new GenericQueryParam("WF_OPERATOR");
+		queryParam.addCondition(new SqlCondition("USER_ID", "*abc*", SqlValueType.string, SqlExpression.like));
+		PageParam page = new PageParam(0, 10);
 		List<DbRecord> list = mybatisDAO.findByParam(page, queryParam);
 		System.out.println(JSON.toJSONString(list));
 	}
