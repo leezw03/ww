@@ -23,10 +23,9 @@
 	<modules>
 		<module>ww.core</module>
 		<module>ww.db</module>
+		<module>ww.cmp</module>
 		<module>ww.frame.web</module>
 		<module>ww.web</module>
-    <module>ww.db</module>
-    <module>ww.cmp</module>
   </modules>
 
 	<dependencies>
