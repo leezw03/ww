@@ -57,9 +57,9 @@ public class GridAction extends BaseAction {
 	
 	
 
-	@RequestMapping(value="/cfg.do")
+	@RequestMapping(value="/loadOption.do")
 	@ResponseBody
-	public GridOption getCfg(ServletServerHttpRequest request, ServletServerHttpResponse response,
+	public GridOption loadOption(ServletServerHttpRequest request, ServletServerHttpResponse response,
 			@ModelAttribute GridParam param) {
 		IGridBO handler = this.getGridBO(param);
 		GridOption options = handler.loadOption(param);
