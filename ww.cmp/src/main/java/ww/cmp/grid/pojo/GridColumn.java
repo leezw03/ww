@@ -1,6 +1,7 @@
 package ww.cmp.grid.pojo;
 
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.Map;
 
 public class GridColumn implements Serializable {
@@ -18,6 +19,16 @@ public class GridColumn implements Serializable {
 	private boolean sortable = true;
 	
 	private Map<String, Object> attrs;
+	
+	public GridColumn() {
+		this.attrs = new HashMap<String, Object>();
+	}
+	
+	public GridColumn(String header, String dataIndex) {
+		super();
+		this.header = header;
+		this.dataIndex = dataIndex;
+	}
 
 	public String getHeader() {
 		return header;
@@ -69,5 +80,9 @@ public class GridColumn implements Serializable {
 	
 	public Object getAttr(String name) {
 		return this.attrs.get(name);
+	}
+	
+	public void setAttr(String name, Object attr) {
+		this.attrs.put(name, attrs);
 	}
 }
