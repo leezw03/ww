@@ -1,6 +1,7 @@
 package ww.cmp.grid.pojo;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class GridOption implements Serializable {
 
@@ -8,4 +9,5 @@ public class GridOption implements Serializable {
 	
 	private String title;
 	
+	private List<GridColumn> columns;
 }
