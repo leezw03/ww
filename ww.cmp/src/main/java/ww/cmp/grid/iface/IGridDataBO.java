@@ -9,8 +9,8 @@ import ww.db.mybatis.pojo.QueryParam;
 
 public interface IGridDataBO<T> {
 
-	public List<T> load(GridParam param, QueryParam query, PageParam page);
+	public List<T> loadData(GridParam param, QueryParam query, PageParam page);
 	
-	public PageResult page(GridParam param, QueryParam query, PageParam page);
+	public PageResult loadPage(GridParam param, QueryParam query, PageParam page);
 	
 }
