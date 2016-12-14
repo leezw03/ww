@@ -1,4 +1,4 @@
-package ww.cmp.grid.pojo;
+package ww.core.mvc.pojo;
 
 import ww.core.mvc.pojo.PageParam;
 

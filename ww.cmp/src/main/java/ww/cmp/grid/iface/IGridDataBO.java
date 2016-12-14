@@ -3,8 +3,8 @@ package ww.cmp.grid.iface;
 import java.util.List;
 
 import ww.cmp.grid.pojo.GridParam;
-import ww.cmp.grid.pojo.PageResult;
 import ww.core.mvc.pojo.PageParam;
+import ww.core.mvc.pojo.PageResult;
 import ww.db.mybatis.pojo.QueryParam;
 
 public interface IGridDataBO<T> {

@@ -16,10 +16,10 @@ import ww.cmp.grid.iface.IGridBO;
 import ww.cmp.grid.iface.IGridDataBO;
 import ww.cmp.grid.pojo.GridOption;
 import ww.cmp.grid.pojo.GridParam;
-import ww.cmp.grid.pojo.PageResult;
 import ww.core.exception.BusiException;
 import ww.core.mvc.action.BaseAction;
 import ww.core.mvc.pojo.PageParam;
+import ww.core.mvc.pojo.PageResult;
 import ww.core.spring.BeanUtils;
 import ww.db.mybatis.pojo.QueryParam;
 
