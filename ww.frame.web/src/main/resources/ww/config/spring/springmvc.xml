@@ -42,7 +42,7 @@
 	
 	<bean id="exceptionResolver" class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
 		<property name="defaultErrorView">
-		 	<value>/500</value>
+		 	<value>/exception/500</value>
 		</property>
 		<property name="defaultStatusCode">
 		 	<value>500</value>

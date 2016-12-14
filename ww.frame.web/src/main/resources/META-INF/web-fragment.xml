@@ -3,8 +3,8 @@
 	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:webfragment="http://java.sun.com/xml/ns/javaee/web-fragment_3_0.xsd"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-fragment_3_0.xsd"
 	id="WebFragment_ID" version="3.0">
-	<display-name>ww.web</display-name>
-	<name>ww_web</name>
+	<display-name>ww.frame.web</display-name>
+	<name>ww_frame_web</name>
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>
@@ -60,7 +60,7 @@
 
 	<error-page>
 		<error-code>404</error-code>
-		<location>/404.jsp</location>
+		<location>/exception/404.jsp</location>
 	</error-page>
 	<welcome-file-list>
 		<welcome-file>/index.jsp</welcome-file>
