@@ -64,7 +64,7 @@ public class GridAction extends BaseAction {
 	
 	
 
-	@RequestMapping(value="/loadOption.do")
+	@RequestMapping(value="/loadOption")
 	@ResponseBody
 	public GridOption loadOption(ServletServerHttpRequest request, ServletServerHttpResponse response,
 			@ModelAttribute GridParam param) {
@@ -73,18 +73,18 @@ public class GridAction extends BaseAction {
 		return options;
 	}
 	
-	@RequestMapping(value="/loadData.do")
+	@RequestMapping(value="/loadData")
 	@ResponseBody
 	public List loadData(ServletServerHttpRequest request, ServletServerHttpResponse response,
-			@ModelAttribute JSONObject loadParam) {
+			@ModelAttribute JSONObject loadParam,
+			@ModelAttribute PageParam page) {
 		GridParam param = loadParam.getObject("param", GridParam.class);
-		PageParam page = loadParam.getObject("page", PageParam.class);
 		QueryParam query = loadParam.getObject("query", QueryParam.class);
 		IGridDataBO handler = this.getGridDataBO(param);
 		return handler.loadData(param, query, page);
 	}
 	
-	@RequestMapping(value="/loadPage.do")
+	@RequestMapping(value="/loadPage")
 	@ResponseBody
 	public PageResult loadPage(ServletServerHttpRequest request, ServletServerHttpResponse response,
 			@ModelAttribute JSONObject loadParam) {

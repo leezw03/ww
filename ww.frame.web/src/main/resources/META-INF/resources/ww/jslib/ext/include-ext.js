@@ -68,7 +68,7 @@
         extDir = extDir.substring(0, extDir.lastIndexOf('/'));
     }
     */
-    extDir = ctx+'/jslib/ext';
+    extDir = ctx+'/ww/jslib/ext';
     
     extPackagesRoot = devMode ? (extDir + '/build') : extDir;
 
