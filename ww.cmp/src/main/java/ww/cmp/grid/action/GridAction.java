@@ -14,6 +14,7 @@ import com.alibaba.fastjson.JSONObject;
 
 import ww.cmp.grid.iface.IGridBO;
 import ww.cmp.grid.iface.IGridDataBO;
+import ww.cmp.grid.pojo.GridLoadParam;
 import ww.cmp.grid.pojo.GridOption;
 import ww.cmp.grid.pojo.GridParam;
 import ww.core.exception.BusiException;
@@ -76,10 +77,10 @@ public class GridAction extends BaseAction {
 	@RequestMapping(value="/loadData")
 	@ResponseBody
 	public List loadData(ServletServerHttpRequest request, ServletServerHttpResponse response,
-			@ModelAttribute JSONObject loadParam,
+			@ModelAttribute GridLoadParam loadParam,
 			@ModelAttribute PageParam page) {
-		GridParam param = loadParam.getObject("param", GridParam.class);
-		QueryParam query = loadParam.getObject("query", QueryParam.class);
+		GridParam param = loadParam.getParam();
+		QueryParam query = loadParam.getQuery();
 		IGridDataBO handler = this.getGridDataBO(param);
 		return handler.loadData(param, query, page);
 	}
