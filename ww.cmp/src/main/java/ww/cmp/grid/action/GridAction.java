@@ -7,13 +7,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 
 import ww.cmp.grid.iface.IGridBO;
 import ww.cmp.grid.iface.IGridDataBO;
@@ -69,7 +67,9 @@ public class GridAction extends BaseAction {
 	@RequestMapping(value="/loadOption")
 	@ResponseBody
 	public GridOption loadOption(HttpServletRequest request, HttpServletResponse response,
-			@ModelAttribute GridParam param) {
+			@RequestParam(value="loadParam") String loadParamStr) {
+		GridLoadParam loadParam = JSON.parseObject(loadParamStr, GridLoadParam.class);
+		GridParam param = loadParam.getParam();
 		IGridBO handler = this.getGridBO(param);
 		GridOption options = handler.loadOption(param);
 		return options;
@@ -82,17 +82,19 @@ public class GridAction extends BaseAction {
 		GridLoadParam loadParam = JSON.parseObject(loadParamStr, GridLoadParam.class);
 		GridParam param = loadParam.getParam();
 		QueryParam query = loadParam.getQuery();
+		PageParam page = loadParam.getPage();
 		IGridDataBO handler = this.getGridDataBO(param);
-		return handler.loadData(param, query, null);
+		return handler.loadData(param, query, page);
 	}
 	
 	@RequestMapping(value="/loadPage")
 	@ResponseBody
 	public PageResult loadPage(HttpServletRequest request, HttpServletResponse response,
-			@ModelAttribute JSONObject loadParam) {
-		GridParam param = loadParam.getObject("param", GridParam.class);
-		PageParam page = loadParam.getObject("page", PageParam.class);
-		QueryParam query = loadParam.getObject("query", QueryParam.class);
+			@RequestParam(value="loadParam") String loadParamStr) {
+		GridLoadParam loadParam = JSON.parseObject(loadParamStr, GridLoadParam.class);
+		GridParam param = loadParam.getParam();
+		QueryParam query = loadParam.getQuery();
+		PageParam page = loadParam.getPage();
 		IGridDataBO handler = this.getGridDataBO(param);
 		return handler.loadPage(param, query, page);
 	}
