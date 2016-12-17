@@ -9,7 +9,7 @@ public class BeanUtils {
 		if(BeanUtils.exists(beanId)) {
 			bean = SpringContextHolder.getContext().getBean(beanId);
 		} else {
-			throw new BusiException(String.format("未找到<bean id=\"%s\" .../>的bean定义！", beanId));
+			throw new BusiException(String.format("未找到id=%s的bean定义！", beanId));
 		}
 		return bean;
 	}
