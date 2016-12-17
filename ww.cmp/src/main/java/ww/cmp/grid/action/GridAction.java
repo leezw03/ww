@@ -9,8 +9,10 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 
 import ww.cmp.grid.iface.IGridBO;
@@ -78,12 +80,12 @@ public class GridAction extends BaseAction {
 	@RequestMapping(value="/loadData")
 	@ResponseBody
 	public List loadData(HttpServletRequest request, HttpServletResponse response,
-			@ModelAttribute GridLoadParam loadParam,
-			@ModelAttribute PageParam page) {
+			@RequestParam(value="loadParam") String loadParamStr) {
+		GridLoadParam loadParam = JSON.parseObject(loadParamStr, GridLoadParam.class);
 		GridParam param = loadParam.getParam();
 		QueryParam query = loadParam.getQuery();
 		IGridDataBO handler = this.getGridDataBO(param);
-		return handler.loadData(param, query, page);
+		return handler.loadData(param, query, null);
 	}
 	
 	@RequestMapping(value="/loadPage")

@@ -44,7 +44,7 @@ Ext.onReady(function(){
             url: ctx+'/cmp/grid/loadData.do',
             reader: 'json',
             extraParams: {
-            	loadParam: loadParam
+            	loadParam: Ext.JSON.encode(loadParam)
             }
         }
     });

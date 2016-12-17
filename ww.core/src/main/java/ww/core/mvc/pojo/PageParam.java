@@ -10,6 +10,10 @@ public class PageParam implements Serializable {
 	
 	private int limit = 20;
 	
+	public PageParam() {
+		
+	}
+	
 	public PageParam(int start) {
 		this.start = start;
 	}
