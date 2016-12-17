@@ -2,9 +2,10 @@ package ww.cmp.grid.action;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.commons.lang.StringUtils;
-import org.springframework.http.server.ServletServerHttpRequest;
-import org.springframework.http.server.ServletServerHttpResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -67,7 +68,7 @@ public class GridAction extends BaseAction {
 
 	@RequestMapping(value="/loadOption")
 	@ResponseBody
-	public GridOption loadOption(ServletServerHttpRequest request, ServletServerHttpResponse response,
+	public GridOption loadOption(HttpServletRequest request, HttpServletResponse response,
 			@ModelAttribute GridParam param) {
 		IGridBO handler = this.getGridBO(param);
 		GridOption options = handler.loadOption(param);
@@ -76,7 +77,7 @@ public class GridAction extends BaseAction {
 	
 	@RequestMapping(value="/loadData")
 	@ResponseBody
-	public List loadData(ServletServerHttpRequest request, ServletServerHttpResponse response,
+	public List loadData(HttpServletRequest request, HttpServletResponse response,
 			@ModelAttribute GridLoadParam loadParam,
 			@ModelAttribute PageParam page) {
 		GridParam param = loadParam.getParam();
@@ -87,7 +88,7 @@ public class GridAction extends BaseAction {
 	
 	@RequestMapping(value="/loadPage")
 	@ResponseBody
-	public PageResult loadPage(ServletServerHttpRequest request, ServletServerHttpResponse response,
+	public PageResult loadPage(HttpServletRequest request, HttpServletResponse response,
 			@ModelAttribute JSONObject loadParam) {
 		GridParam param = loadParam.getObject("param", GridParam.class);
 		PageParam page = loadParam.getObject("page", PageParam.class);
@@ -95,4 +96,5 @@ public class GridAction extends BaseAction {
 		IGridDataBO handler = this.getGridDataBO(param);
 		return handler.loadPage(param, query, page);
 	}
+	
 }
