@@ -65,8 +65,6 @@ public class GridAction extends BaseAction {
 		}
 		return handler;
 	}
-	
-	
 
 	@RequestMapping(value="/loadOption")
 	@ResponseBody
