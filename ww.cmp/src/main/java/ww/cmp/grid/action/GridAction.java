@@ -18,7 +18,6 @@ import ww.cmp.grid.iface.IGridDataBO;
 import ww.cmp.grid.pojo.GridLoadParam;
 import ww.cmp.grid.pojo.GridOption;
 import ww.cmp.grid.pojo.GridParam;
-import ww.core.exception.BusiException;
 import ww.core.mvc.action.BaseAction;
 import ww.core.mvc.pojo.PageParam;
 import ww.core.mvc.pojo.PageResult;
@@ -33,35 +32,19 @@ public class GridAction extends BaseAction {
 	private static final String DEFAULT_HANDLER = "";
 	
 	private IGridBO getGridBO(GridParam param) {
-		IGridBO handler = null;
 		String handlerName = param.getHandler();
 		if(StringUtils.isBlank(handlerName)) {
 			handlerName = DEFAULT_HANDLER;
 		}
-		Object handlerObj = BeanUtils.get(handlerName);
-		
-		if(handlerObj instanceof IGridBO) {
-			handler = (IGridBO) handlerObj;
-		} else {
-			throw new BusiException("Bean“%s”未实现IGridBO接口！");
-		}
-		return handler;
+		return BeanUtils.get(handlerName, IGridBO.class);
 	}
 	
 	private IGridDataBO getGridDataBO(GridParam param) {
-		IGridDataBO handler = null;
 		String handlerName = param.getHandler();
 		if(StringUtils.isBlank(handlerName)) {
 			handlerName = DEFAULT_HANDLER;
 		}
-		Object handlerObj = BeanUtils.get(handlerName);
-		
-		if(handlerObj instanceof IGridDataBO) {
-			handler = (IGridDataBO) handlerObj;
-		} else {
-			throw new BusiException("Bean“%s”未实现IGridDataBO接口！");
-		}
-		return handler;
+		return BeanUtils.get(handlerName, IGridDataBO.class);
 	}
 
 	@RequestMapping(value="/loadOption")

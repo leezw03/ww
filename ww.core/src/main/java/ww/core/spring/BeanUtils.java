@@ -1,13 +1,16 @@
 package ww.core.spring;
 
+import java.lang.reflect.Type;
+
 import ww.core.exception.BusiException;
 
+@SuppressWarnings("unchecked")
 public class BeanUtils {
 	
-	public static Object get(String beanId) {
-		Object bean = null;
+	public static <T> T get(String beanId, Type clazz) {
+		T bean = null;
 		if(BeanUtils.exists(beanId)) {
-			bean = SpringContextHolder.getContext().getBean(beanId);
+			bean = (T)SpringContextHolder.getContext().getBean(beanId);
 		} else {
 			throw new BusiException(String.format("未找到id=%s的bean定义！", beanId));
 		}

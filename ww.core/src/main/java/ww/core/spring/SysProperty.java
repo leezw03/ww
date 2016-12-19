@@ -34,7 +34,7 @@ public class SysProperty extends PropertyPlaceholderConfigurer {
 		resourceLoader = new PathMatchingResourcePatternResolver();
 	}
 	
-	public static SysProperty getInstance() {
+	private static SysProperty getInstance() {
 		if (instance == null) {
 			synchronized (SysProperty.class) {
 				if (instance == null) {

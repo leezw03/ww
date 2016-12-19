@@ -9,28 +9,41 @@ import java.util.concurrent.locks.ReentrantLock;
 import org.apache.commons.lang.StringUtils;
 
 import ww.cmp.tpl.iface.ITplHandler;
+import ww.core.spring.BeanUtils;
 import ww.core.spring.SysProperty;
 
 public class TplLoader {
 	
-	protected Map<String, Map<String, Object>> tplStore = new HashMap<String, Map<String, Object>>();
-
 	private String[] locations;
 	
 	public void setLocations(String[] locations) {
 		this.locations = locations;
 	}
 	
+	protected Map<String, Map<String, Object>> tplStore;
+
 	private Lock lock = new ReentrantLock();
 	
 	private boolean isInited = false;
 	
 	private Map<String, ITplHandler> handlers;
 
-	public void setHandlers(Map<String, ITplHandler> handlers) {
-		this.handlers = handlers;
+	public TplLoader() {
+		tplStore = new HashMap<String, Map<String, Object>>();
+		handlers = new HashMap<String, ITplHandler>();
+		String types = SysProperty.getValue("cmp.tpl.types");
+		if(StringUtils.isNotBlank(types)) {
+			String[] typeArray = StringUtils.split(types, ",");
+			for(String type : typeArray) {
+				if(StringUtils.isNotBlank(type)) {
+					String handlerName = SysProperty.getValue("cmp.tpl.types."+type);
+					if(StringUtils.isNotBlank(handlerName)) {
+						handlers.put(type, BeanUtils.get(handlerName, ITplHandler.class));
+					}
+				}
+			}
+		}
 	}
-
 	/**
 	 * 启动时初始化
 	 */
