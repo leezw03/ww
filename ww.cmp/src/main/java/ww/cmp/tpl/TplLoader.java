@@ -41,7 +41,7 @@ public class TplLoader {
 	/**
 	 * 初始化配置
 	 */
-	public synchronized void init() {
+	public void init() {
 		this.lock.lock();
 		try {
 			this.isInited = false;
@@ -55,27 +55,11 @@ public class TplLoader {
 	}
 	
 	protected Map<String, Object> getTpls(String code, boolean forceLoad) {
-		boolean isLock = false;
-		if(!this.isInited) {
-			this.lock.lock();
-			isLock = true;
+		boolean devModel = Boolean.parseBoolean(SysProperty.getValue("cmp.tpl.devmode", "false"));
+		if (devModel || !this.isInited || forceLoad) {
+			this.init();
 		}
-		Map<String, Object> tpls = null;
-		try {
-			boolean devModel = Boolean.parseBoolean(SysProperty.getValue("cmp.tpl.devmode", "false"));
-			if (devModel || !this.isInited || forceLoad) {
-				this.init();
-			}
-			if(!tplStore.containsKey(code)) {
-				this.init();
-			}
-			tpls = tplStore.get(code);
-		} finally {
-			if(isLock) {
-				this.lock.unlock();
-			}
-		}
-		return tpls;
+		return tplStore.get(code);
 	}
 	
 	protected Map<String, Object> getTpls(String code) {
