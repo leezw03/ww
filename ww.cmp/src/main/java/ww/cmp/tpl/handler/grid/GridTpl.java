@@ -8,6 +8,7 @@ import java.util.Map;
 import org.dom4j.Attribute;
 import org.dom4j.Element;
 
+import ww.cmp.tpl.handler.sql.SqlTpl;
 import ww.cmp.tpl.pojo.AbstractTpl;
 
 @SuppressWarnings("unchecked")
@@ -20,6 +21,8 @@ public class GridTpl extends AbstractTpl {
 	private List<Column> columns;
 	
 	private Map<String, String> attributes;
+	
+	private SqlTpl sqlTpl;
 	
 	public GridTpl(Element el) {
 		super(el);
@@ -41,7 +44,9 @@ public class GridTpl extends AbstractTpl {
 		}
 		
 		Element sqlEl = el.element("sql");
-		
+		if(sqlEl != null) {
+			this.sqlTpl = new SqlTpl(sqlEl);
+		}
 	}
 	
 	public String getTitle() {
@@ -55,7 +60,11 @@ public class GridTpl extends AbstractTpl {
 	public Map<String, String> getAttributes() {
 		return attributes;
 	}
-	
+
+	public SqlTpl getSqlTpl() {
+		return sqlTpl;
+	}
+
 	public class Column {
 		
 		private String header;
@@ -109,6 +118,11 @@ public class GridTpl extends AbstractTpl {
 					}
 				}
 			}
+		}
+		
+		if(this.sqlTpl != null) {
+			Element sqlEl = el.addElement("sql");
+			this.sqlTpl.toElement(sqlEl);
 		}
 	}
 
