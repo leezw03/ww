@@ -2,10 +2,10 @@ package ww.cmp.tpl.handler.sql;
 
 import org.dom4j.Element;
 
-import ww.cmp.tpl.handler.AbstractTplHandler;
 import ww.cmp.tpl.iface.ITpl;
+import ww.cmp.tpl.iface.ITplHandler;
 
-public class SqlTplHandler extends AbstractTplHandler {
+public class SqlTplHandler implements ITplHandler {
 
 	@Override
 	public String getPathPattern() {
@@ -13,12 +13,12 @@ public class SqlTplHandler extends AbstractTplHandler {
 	}
 
 	@Override
-	protected String getNodeName() {
+	public String getNodeName() {
 		return "sql";
 	}
 
 	@Override
-	protected ITpl createTplByElement(Element el) {
+	public ITpl createTplByElement(Element el) {
 		return new SqlTpl(el);
 	}
 

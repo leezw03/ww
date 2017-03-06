@@ -1,13 +1,13 @@
 package ww.cmp.tpl.iface;
 
-import java.util.List;
-
-import org.springframework.core.io.Resource;
+import org.dom4j.Element;
 
 public interface ITplHandler {
-
-	public String getPathPattern();
 	
-	public List<ITpl> loadTpl(Resource res);
+	String getNodeName();
+
+	String getPathPattern();
+	
+	ITpl createTplByElement(Element el);
 	
 }

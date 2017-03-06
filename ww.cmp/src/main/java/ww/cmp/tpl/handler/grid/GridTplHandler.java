@@ -2,10 +2,10 @@ package ww.cmp.tpl.handler.grid;
 
 import org.dom4j.Element;
 
-import ww.cmp.tpl.handler.AbstractTplHandler;
 import ww.cmp.tpl.iface.ITpl;
+import ww.cmp.tpl.iface.ITplHandler;
 
-public class GridTplHandler extends AbstractTplHandler {
+public class GridTplHandler implements ITplHandler {
 
 	@Override
 	public String getPathPattern() {
@@ -13,12 +13,12 @@ public class GridTplHandler extends AbstractTplHandler {
 	}
 
 	@Override
-	protected String getNodeName() {
+	public String getNodeName() {
 		return "grid";
 	}
 
 	@Override
-	protected ITpl createTplByElement(Element el) {
+	public ITpl createTplByElement(Element el) {
 		return new GridTpl(el);
 	}
 
