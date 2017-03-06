@@ -18,7 +18,7 @@ import org.springframework.core.io.support.ResourcePatternResolver;
 
 import ww.cmp.tpl.iface.ITpl;
 import ww.cmp.tpl.iface.ITplHandler;
-import ww.cmp.tpl.pojo.BaseTpl;
+import ww.cmp.tpl.pojo.AbstractTpl;
 import ww.core.spring.SysProperty;
 
 @SuppressWarnings("unchecked")
@@ -114,8 +114,8 @@ public class TplLoader {
 					List<ITpl> addTplList = this.loadTpl(handler, res);
 					for(ITpl tpl : addTplList) {
 						if(!tplMap.containsKey(tpl.getName())) {
-							if(tpl instanceof BaseTpl) {
-								BaseTpl baseTpl = (BaseTpl) tpl;
+							if(tpl instanceof AbstractTpl) {
+								AbstractTpl baseTpl = (AbstractTpl) tpl;
 								baseTpl.setFile(fUriName);
 							}
 							tplMap.put(tpl.getName(), tpl);

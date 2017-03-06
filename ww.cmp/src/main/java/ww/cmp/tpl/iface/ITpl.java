@@ -2,10 +2,14 @@ package ww.cmp.tpl.iface;
 
 import java.io.Serializable;
 
+import org.dom4j.Element;
+
 public interface ITpl extends Serializable {
 
-	public String getFile();
+	String getFile();
 	
-	public String getName();
+	String getName();
+	
+	void toElement(Element el);
 	
 }

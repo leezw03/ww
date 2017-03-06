@@ -1,22 +1,23 @@
 package ww.cmp.tpl.pojo;
 
+import java.io.Serializable;
+
 import org.dom4j.Element;
 
 import ww.cmp.tpl.iface.ITpl;
 
-public class BaseTpl implements ITpl {
+public abstract class AbstractTpl implements Serializable, ITpl {
 
 	private static final long serialVersionUID = 1L;
-	/**
-	 * 配置文件位置
-	 */
-	private String file;
-	/**
-	 * 配置名称
-	 */
+	
 	protected String name;
 	
-	public BaseTpl(Element el) {
+	protected Element el;
+	
+	protected String file;
+	
+	public AbstractTpl(Element el) {
+		this.el = el;
 		if(el != null) {
 			this.name = el.attributeValue("name");
 		}
@@ -31,19 +32,17 @@ public class BaseTpl implements ITpl {
 	public String getName() {
 		return name;
 	}
-	
-	public void merge(BaseTpl merge) {
-		if(merge.name != null) {
-			this.name = merge.name;
-		}
-		if(merge.file != null) {
-			this.file = merge.file;
-		}
+	public Element getEl() {
+		return el;
 	}
-	
-	public void addTpl2Element(Element el) {
+
+	@Override
+	public void toElement(Element el) {
 		if(this.name != null) {
 			el.addAttribute("name", this.name);
 		}
+		this.toElementExtend(el);
 	}
+	
+	protected abstract void toElementExtend(Element el);
 }
