@@ -26,7 +26,7 @@ public class TplLoader {
 	
 	private static Logger logger = LoggerFactory.getLogger(TplLoader.class);
 	
-	private volatile TplLoader instance;
+	private volatile static TplLoader instance;
 	
 	private String[] locations;
 	
@@ -48,15 +48,15 @@ public class TplLoader {
 		this.devModel = Boolean.parseBoolean(SysProperty.getValue("cmp.tpl.devmode", "false"));
 	}
 	
-	public TplLoader getInstance() {
-		if(this.instance == null) {
-			synchronized (this.getClass()) {
-				if(this.instance == null) {
-					this.instance = new TplLoader();
+	public static TplLoader getInstance() {
+		if(instance == null) {
+			synchronized (TplLoader.class) {
+				if(instance == null) {
+					instance = new TplLoader();
 				}
 			}
 		}
-		return this.instance;
+		return instance;
 	}
 
 	/**

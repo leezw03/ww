@@ -17,7 +17,4 @@
 			</list>
 		</property>
 	</bean>
-	
-	<bean id="SqlTplHandler" class="ww.cmp.tpl.handler.sql.SqlTplHandler"/>
-	<bean id="GridTplHandler" class="ww.cmp.tpl.handler.grid.GridTplHandler"/>
 </beans>
