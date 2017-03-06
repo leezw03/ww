@@ -130,6 +130,9 @@ public class TplLoader {
 	}
 	
 	public <T extends ITplHandler> void registerHandler(String code, Class<T> handlerClass) {
+		if(this.handlerMap == null) {
+			this.handlerMap = new HashMap<String, ITplHandler>();
+		}
 		if(this.handlerMap.containsKey(code)) {
 			throw new RuntimeException("重复注册ITplHandler："+code+"！");
 		}
@@ -140,7 +143,7 @@ public class TplLoader {
 			e.printStackTrace();
 			throw new RuntimeException("ITplHandler："+handlerClass.getName()+"注册失败！");
 		}
-		logger.info("注册ITplHandler："+code+"["+handlerClass.getName()+"]");
+		logger.info("注册ITplHandler："+code+"["+handlerClass.getName()+"],node="+handler.getNodeName()+",pattern="+handler.getPathPattern());
 		this.handlerMap.put(code, handler);
 	}
 	
@@ -165,6 +168,7 @@ public class TplLoader {
 				ITpl tpl = null;
 				try {
 					tpl = handler.createTplByElement(el);
+					logger.info("加载tpl模板："+tpl.getName()+"["+file+"]");
 					list.add(tpl);
 				} catch(Exception e) {
 					e.printStackTrace();
