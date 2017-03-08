@@ -73,6 +73,8 @@ public class GridTpl extends AbstractTpl {
 		
 		private Map<String, String> attributes;
 		
+		private String content;
+		
 		public Column(Element el) {
 			this.header = el.attributeValue("header");
 			this.dataIndex = el.attributeValue("dataIndex");
@@ -84,6 +86,8 @@ public class GridTpl extends AbstractTpl {
 					this.attributes.put(attr.getName(), attr.getValue());
 				}
 			}
+			
+			this.content = el.getTextTrim();
 		}
 
 		public String getHeader() {
@@ -98,6 +102,9 @@ public class GridTpl extends AbstractTpl {
 			return attributes;
 		}
 
+		public String getContent() {
+			return content;
+		}
 	}
 
 	@Override
