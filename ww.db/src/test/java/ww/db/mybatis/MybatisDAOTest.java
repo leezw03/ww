@@ -24,13 +24,13 @@ import ww.test.AbstractTests;
 public class MybatisDAOTest extends AbstractTests {
 
 	public void testFindBySql(){
-		MybatisDAO mybatisDAO = BeanUtils.get("MybatisDAO", MybatisDAO.class);
+		MybatisDAO mybatisDAO = BeanUtils.get("mybatisDAO", MybatisDAO.class);
 		List<DbRecord> list = mybatisDAO.findBySql("SELECT 'ABS' AS NAME FROM DUAL");
 		System.out.println(JSONArray.toJSON(list));
 	}
 	
 	public void testUpdate() {
-		MybatisDAO mybatisDAO = BeanUtils.get("MybatisDAO", MybatisDAO.class);
+		MybatisDAO mybatisDAO = BeanUtils.get("mybatisDAO", MybatisDAO.class);
 		Pk pk = new Pk("T_SYS_LOG", "CUID", "T_SYS_LOG-8aac7fc651f3fd460151f427faaf0009");
 		Record r = new Record(pk);
 		r.addData("RES_NAME", "123");
@@ -40,7 +40,7 @@ public class MybatisDAOTest extends AbstractTests {
 	}
 	
 	public void testUpdateBatch() {
-		MybatisDAO mybatisDAO = BeanUtils.get("MybatisDAO", MybatisDAO.class);
+		MybatisDAO mybatisDAO = BeanUtils.get("mybatisDAO", MybatisDAO.class);
 		Pk pk1 = new Pk("T_SYS_LOG", "CUID", "T_SYS_LOG-8aac7fc651f3fd460151f427faaf0009");
 		Record r1 = new Record(pk1);
 		r1.addData("RES_NAME", "123");
@@ -60,7 +60,7 @@ public class MybatisDAOTest extends AbstractTests {
 	}
 	
 	public void testInsert() {
-		MybatisDAO mybatisDAO = BeanUtils.get("MybatisDAO", MybatisDAO.class);
+		MybatisDAO mybatisDAO = BeanUtils.get("mybatisDAO", MybatisDAO.class);
 		Record r = new Record("T_SYS_LOG");
 		r.addData("CUID", "T_SYS_LOG-8aac7fc651f3fd460151f427faaf0010");
 		r.addData("RES_NAME", "123");
@@ -70,7 +70,7 @@ public class MybatisDAOTest extends AbstractTests {
 	}
 	
 	public void testInsertBatch() {
-		MybatisDAO mybatisDAO = BeanUtils.get("MybatisDAO", MybatisDAO.class);
+		MybatisDAO mybatisDAO = BeanUtils.get("mybatisDAO", MybatisDAO.class);
 		Pk pk1 = new Pk("T_SYS_LOG", "CUID", "T_SYS_LOG-8aac7fc651f3fd460151f427faaf0013");
 		Record r1 = new Record(pk1);
 		r1.addData("RES_NAME", "123");
@@ -90,20 +90,20 @@ public class MybatisDAOTest extends AbstractTests {
 	}
 	
 	public void testDelete() {
-		MybatisDAO mybatisDAO = BeanUtils.get("MybatisDAO", MybatisDAO.class);
+		MybatisDAO mybatisDAO = BeanUtils.get("mybatisDAO", MybatisDAO.class);
 		Pk pk = new Pk("T_SYS_LOG", "CUID", "T_SYS_LOG-8aac7fc651f3fd460151f427faaf0010");
 		mybatisDAO.delete(pk);
 	}
 	
 	public void testGet() {
-		MybatisDAO mybatisDAO = BeanUtils.get("MybatisDAO", MybatisDAO.class);
+		MybatisDAO mybatisDAO = BeanUtils.get("mybatisDAO", MybatisDAO.class);
 		Pk pk = new Pk("T_SYS_LOG", "CUID", "T_SYS_LOG-8aac7fc651f3fd460151f427faaf0009");
 		Record r = mybatisDAO.get(pk);
 	}
 	
 	
 	public void testFindByParam() {
-		MybatisDAO mybatisDAO = BeanUtils.get("MybatisDAO", MybatisDAO.class);
+		MybatisDAO mybatisDAO = BeanUtils.get("mybatisDAO", MybatisDAO.class);
 		GenericQueryParam queryParam = new GenericQueryParam("WF_OPERATOR");
 		//queryParam.addCondition(new SqlCondition("HOST", "localhost"));
 		//queryParam.addCondition(new SqlCondition("HOST", "local*", SqlValueType.string, SqlExpression.like));
@@ -123,7 +123,7 @@ public class MybatisDAOTest extends AbstractTests {
 	
 	@Test
 	public void testFindByPage() {
-		MybatisDAO mybatisDAO = BeanUtils.get("MybatisDAO", MybatisDAO.class);
+		MybatisDAO mybatisDAO = BeanUtils.get("mybatisDAO", MybatisDAO.class);
 		GenericQueryParam queryParam = new GenericQueryParam("WF_OPERATOR");
 		queryParam.addCondition(new SqlCondition("USER_ID", "*abc*", SqlValueType.string, SqlExpression.like));
 		PageParam page = new PageParam(0, 10);
