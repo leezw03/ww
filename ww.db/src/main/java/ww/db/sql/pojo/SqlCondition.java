@@ -1,5 +1,7 @@
 package ww.db.sql.pojo;
 
+import java.io.Serializable;
+
 import ww.db.sql.em.SqlExpression;
 import ww.db.sql.em.SqlValueType;
 
@@ -8,8 +10,9 @@ import ww.db.sql.em.SqlValueType;
  * @author leezw
  *
  */
-public class SqlCondition {
+public class SqlCondition implements Serializable {
 
+	private static final long serialVersionUID = 1L;
 	/**
 	 * 名称
 	 */

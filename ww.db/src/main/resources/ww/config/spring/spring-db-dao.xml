@@ -109,7 +109,7 @@
 		</property>
 	</bean>
 	
-	<bean id="MybatisDAO" class="ww.db.mybatis.MybatisDAO">
+	<bean id="mybatisDAO" class="ww.db.mybatis.MybatisDAO">
 		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
 	</bean>
 </beans>

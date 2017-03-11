@@ -4,7 +4,7 @@ import java.util.List;
 
 import ww.db.sql.pojo.SqlCondition;
 
-public class GenericQueryParam extends QueryParam {
+public class GenericQueryParam extends QueryParam<SqlCondition> {
 
 	private String table;
 	

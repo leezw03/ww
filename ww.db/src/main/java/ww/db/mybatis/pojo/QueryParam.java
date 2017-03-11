@@ -10,13 +10,13 @@ import java.util.Map;
  * @author leezw
  *
  */
-public class QueryParam {
+public class QueryParam<T> {
 
 	/**
 	 * 查询条件
 	 * 通过where后面追加
 	 */
-	private final List<Object> conditionList;
+	private final List<T> conditionList;
 	/**
 	 * 变量参数
 	 * 通过替换sql中的关键词
@@ -28,10 +28,10 @@ public class QueryParam {
 	private String sort;
 	
 	public QueryParam() {
-		this.conditionList = new ArrayList<Object>();
+		this.conditionList = new ArrayList<T>();
 	}
 	
-	public List<Object> getConditionList() {
+	public List<T> getConditionList() {
 		return conditionList;
 	}
 	public Map<String, String> getVarMap() {

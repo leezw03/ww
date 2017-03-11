@@ -108,10 +108,9 @@ public class MybatisDAO extends AbsMybatisDAO<Record, Pk> {
 		param.put("_columnList", queryParam.getColumnList());
 		param.put("_sort", queryParam.getSort());
 		List<String> _conditionList = new ArrayList<String>();
-		List<Object> conditionList = queryParam.getConditionList();
-		for(Object condition : conditionList) {
-			SqlCondition sqlCondition = (SqlCondition) condition;
-			String text = SqlConditionTool.getInstance(this.getDbType()).getConditionText(sqlCondition);
+		List<SqlCondition> conditionList = queryParam.getConditionList();
+		for(SqlCondition condition : conditionList) {
+			String text = SqlConditionTool.getInstance(this.getDbType()).getConditionText(condition);
 			if(StringUtils.isNotBlank(text)) {
 				_conditionList.add(text);
 			}
