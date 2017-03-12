@@ -74,7 +74,7 @@ public class MybatisDAO extends AbsMybatisDAO<Record, Pk> {
 	 * @param queryParam
 	 * @return
 	 */
-	public int countByParam(GenericQueryParam queryParam) {
+	public int countEntity(GenericQueryParam queryParam) {
 		Map<String, Object> param = this.parseQueryParam(queryParam);
 		return super.count(param);
 	}
@@ -83,8 +83,8 @@ public class MybatisDAO extends AbsMybatisDAO<Record, Pk> {
 	 * @param queryParam
 	 * @return
 	 */
-	public List<DbRecord> findByParam(GenericQueryParam queryParam) {
-		return this.findByParam(null, queryParam);
+	public List<DbRecord> findEntity(GenericQueryParam queryParam) {
+		return this.findEntity(null, queryParam);
 	}
 	/**
 	 * 查询表并分页
@@ -92,7 +92,7 @@ public class MybatisDAO extends AbsMybatisDAO<Record, Pk> {
 	 * @param queryParam
 	 * @return
 	 */
-	public List<DbRecord> findByParam(PageParam pageParam, GenericQueryParam queryParam) {
+	public List<DbRecord> findEntity(PageParam pageParam, GenericQueryParam queryParam) {
 		Map<String, Object> param = this.parseQueryParam(queryParam);
 		if(pageParam != null) {
 			RowBounds bounds = new RowBounds(pageParam.getStart(), pageParam.getLimit());
@@ -127,10 +127,37 @@ public class MybatisDAO extends AbsMybatisDAO<Record, Pk> {
 	 * @param sql
 	 * @return
 	 */
-	public List<DbRecord> findBySql(String sql) {
+	public List<DbRecord> findSql(String sql) {
 		SqlAdapter sqlAdapter = new SqlAdapter(sql);
-		return this.getSqlSession().selectList(this.getSqlMap()+".findBySql", sqlAdapter);
+		return this.getSqlSession().selectList(this.getSqlMap()+".findSql", sqlAdapter);
 	}
+	/**
+	 * 根据sql分页查询
+	 * @param sql
+	 * @param pageParam
+	 * @return
+	 */
+	public List<DbRecord> findSql(String sql, PageParam pageParam) {
+		List<DbRecord> list = null;
+		SqlAdapter sqlAdapter = new SqlAdapter(sql);
+		if(pageParam != null) {
+			RowBounds bounds = new RowBounds(pageParam.getStart(), pageParam.getLimit());
+			list = this.getSqlSession().selectList(this.getSqlMap()+".findSql", sqlAdapter, bounds);
+		} else {
+			list = this.getSqlSession().selectList(this.getSqlMap()+".findSql", sqlAdapter);
+		}
+		return list;
+	}
+	/**
+	 * 根据sql统计数量
+	 * @param sql
+	 * @return
+	 */
+	public int countBySql(String sql) {
+		SqlAdapter sqlAdapter = new SqlAdapter(sql);
+		return this.getSqlSession().selectOne(this.getSqlMap()+".countSql", sqlAdapter);
+	}
+	
 	/**
 	 * 根据sql更新
 	 * @param sql
@@ -138,7 +165,7 @@ public class MybatisDAO extends AbsMybatisDAO<Record, Pk> {
 	 */
 	public int updateBySql(String sql) {
 		SqlAdapter sqlAdapter = new SqlAdapter(sql);
-		return this.getSqlSession().update(this.getSqlMap()+".updateBySql", sqlAdapter);
+		return this.getSqlSession().update(this.getSqlMap()+".updateSql", sqlAdapter);
 	}
 	/**
 	 * 根据sql删除
@@ -147,7 +174,7 @@ public class MybatisDAO extends AbsMybatisDAO<Record, Pk> {
 	 */
 	public int deleteBySql(String sql) {
 		SqlAdapter sqlAdapter = new SqlAdapter(sql);
-		return this.getSqlSession().delete(this.getSqlMap()+".deleteBySql", sqlAdapter);
+		return this.getSqlSession().delete(this.getSqlMap()+".deleteSql", sqlAdapter);
 	}
 	
 }

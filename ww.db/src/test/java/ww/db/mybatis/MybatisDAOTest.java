@@ -25,7 +25,7 @@ public class MybatisDAOTest extends AbstractTests {
 
 	public void testFindBySql(){
 		MybatisDAO mybatisDAO = BeanUtils.get("mybatisDAO", MybatisDAO.class);
-		List<DbRecord> list = mybatisDAO.findBySql("SELECT 'ABS' AS NAME FROM DUAL");
+		List<DbRecord> list = mybatisDAO.findSql("SELECT 'ABS' AS NAME FROM DUAL");
 		System.out.println(JSONArray.toJSON(list));
 	}
 	
@@ -117,17 +117,25 @@ public class MybatisDAOTest extends AbstractTests {
 		//queryParam.addCondition(new SqlCondition("_exists1", "SELECT SERVER_NAME FROM SERVERS R WHERE R.SERVER_NAME = USER", SqlValueType.string, SqlExpression.exists));
 		//queryParam.addCondition(new SqlCondition("SELECT_PRIV", new String[]{"Y", "N"}, SqlValueType.string, SqlExpression.in));
 		queryParam.addCondition(new SqlCondition("STATUS", new String[]{"1", "0"}, SqlValueType.number, SqlExpression.in));
-		List<DbRecord> list = mybatisDAO.findByParam(queryParam);
+		List<DbRecord> list = mybatisDAO.findEntity(queryParam);
+		System.out.println(JSON.toJSONString(list));
+	}
+	
+	public void testFindByPage() {
+		MybatisDAO mybatisDAO = BeanUtils.get("mybatisDAO", MybatisDAO.class);
+		GenericQueryParam queryParam = new GenericQueryParam("WF_OPERATOR");
+		queryParam.addCondition("USER_ID", "*abc*", SqlValueType.string, SqlExpression.like);
+		PageParam page = new PageParam(0, 10);
+		List<DbRecord> list = mybatisDAO.findEntity(page, queryParam);
 		System.out.println(JSON.toJSONString(list));
 	}
 	
 	@Test
-	public void testFindByPage() {
+	public void testCount() {
 		MybatisDAO mybatisDAO = BeanUtils.get("mybatisDAO", MybatisDAO.class);
 		GenericQueryParam queryParam = new GenericQueryParam("WF_OPERATOR");
-		queryParam.addCondition(new SqlCondition("USER_ID", "*abc*", SqlValueType.string, SqlExpression.like));
-		PageParam page = new PageParam(0, 10);
-		List<DbRecord> list = mybatisDAO.findByParam(page, queryParam);
-		System.out.println(JSON.toJSONString(list));
+		queryParam.addCondition("USER_ID", "*abc*", SqlValueType.string, SqlExpression.like);
+		int count = mybatisDAO.countEntity(queryParam);
+		System.out.println(count);
 	}
 }

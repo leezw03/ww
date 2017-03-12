@@ -12,6 +12,8 @@ public class SqlTpl extends AbstractTpl {
 
 	private static final long serialVersionUID = 1L;
 	
+	public static String TYPE = "sql";
+	
 	private String sqlText;
 	
 	private List<DynamicItem> dynamicItems;
@@ -27,6 +29,14 @@ public class SqlTpl extends AbstractTpl {
 			DynamicItem dynamicItem = new DynamicItem(dynamicItemEl);
 			dynamicItems.add(dynamicItem);
 		}
+	}
+
+	public String getSqlText() {
+		return sqlText;
+	}
+
+	public List<DynamicItem> getDynamicItems() {
+		return dynamicItems;
 	}
 
 	@Override

@@ -179,18 +179,18 @@ public class TplLoader {
 		return list;
 	}
 	
-	protected Map<String, Object> getTpls(String code, boolean forceRefresh) {
+	public Map<String, Object> getTpls(String code, boolean forceRefresh) {
 		if(this.devModel || !this.isInited || forceRefresh) {
 			this.init();
 		}
 		return tplStore.get(code);
 	}
 	
-	protected Map<String, Object> getTpls(String code) {
+	public Map<String, Object> getTpls(String code) {
 		return this.getTpls(code, false);
 	}
 	
-	protected Object getTpl(String code, String name) {
+	public Object getTpl(String code, String name) {
 		Object obj = null;
 		Map<String, Object> tpls = this.getTpls(code);
 		if(tpls!=null && StringUtils.isNotBlank(name)) {

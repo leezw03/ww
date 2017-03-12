@@ -2,15 +2,19 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
 <mapper namespace="_Mybatis_">
 
-	<select id="findBySql" parameterType="sqlAdapter" resultType="dbRecord">
+	<select id="findSql" parameterType="sqlAdapter" resultType="dbRecord">
 		${sql}
 	</select>
 	
-	<update id="updateBySql" parameterType="sqlAdapter">
+	<select id="countSql" parameterType="sqlAdapter" resultType="java.lang.Integer">
+		${sql}
+	</select>
+	
+	<update id="updateSql" parameterType="sqlAdapter">
 		${sql}
 	</update>
 	
-	<delete id="deleteBySql" parameterType="sqlAdapter">
+	<delete id="deleteSql" parameterType="sqlAdapter">
 		${sql}
 	</delete>
 	
@@ -189,7 +193,7 @@
 		</if>
 	</sql>
 	
-	<select id="countEntity" parameterType="java.util.Map" resultType="dbRecord">
+	<select id="countEntity" parameterType="java.util.Map" resultType="java.lang.Integer">
 		SELECT COUNT(*)
 		  FROM ${_table}
 		 WHERE 1=1

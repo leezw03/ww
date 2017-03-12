@@ -9,7 +9,7 @@ import ww.cmp.tpl.iface.ITplHandler;
 public class SqlTplHandler implements ITplHandler {
 
 	static {
-		TplLoader.getInstance().registerHandler("sql", SqlTplHandler.class);
+		TplLoader.getInstance().registerHandler(SqlTpl.TYPE, SqlTplHandler.class);
 	}
 	
 	@Override
@@ -19,7 +19,7 @@ public class SqlTplHandler implements ITplHandler {
 
 	@Override
 	public String getNodeName() {
-		return "sql";
+		return SqlTpl.TYPE;
 	}
 
 	@Override
