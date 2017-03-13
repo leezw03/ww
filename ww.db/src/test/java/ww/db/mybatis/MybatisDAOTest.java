@@ -13,9 +13,9 @@ import com.alibaba.fastjson.JSONArray;
 import ww.core.mvc.pojo.PageParam;
 import ww.core.spring.BeanUtils;
 import ww.db.mybatis.pojo.DbRecord;
-import ww.db.mybatis.pojo.GenericQueryParam;
 import ww.db.mybatis.pojo.Pk;
 import ww.db.mybatis.pojo.Record;
+import ww.db.mybatis.pojo.TableQueryParam;
 import ww.db.sql.em.SqlExpression;
 import ww.db.sql.em.SqlValueType;
 import ww.db.sql.pojo.SqlCondition;
@@ -104,7 +104,7 @@ public class MybatisDAOTest extends AbstractTests {
 	
 	public void testFindByParam() {
 		MybatisDAO mybatisDAO = BeanUtils.get("mybatisDAO", MybatisDAO.class);
-		GenericQueryParam queryParam = new GenericQueryParam("WF_OPERATOR");
+		TableQueryParam queryParam = new TableQueryParam("WF_OPERATOR");
 		//queryParam.addCondition(new SqlCondition("HOST", "localhost"));
 		//queryParam.addCondition(new SqlCondition("HOST", "local*", SqlValueType.string, SqlExpression.like));
 		Date now = new Date();
@@ -117,25 +117,25 @@ public class MybatisDAOTest extends AbstractTests {
 		//queryParam.addCondition(new SqlCondition("_exists1", "SELECT SERVER_NAME FROM SERVERS R WHERE R.SERVER_NAME = USER", SqlValueType.string, SqlExpression.exists));
 		//queryParam.addCondition(new SqlCondition("SELECT_PRIV", new String[]{"Y", "N"}, SqlValueType.string, SqlExpression.in));
 		queryParam.addCondition(new SqlCondition("STATUS", new String[]{"1", "0"}, SqlValueType.number, SqlExpression.in));
-		List<DbRecord> list = mybatisDAO.findEntity(queryParam);
+		List<DbRecord> list = mybatisDAO.findTable(queryParam);
 		System.out.println(JSON.toJSONString(list));
 	}
 	
 	public void testFindByPage() {
 		MybatisDAO mybatisDAO = BeanUtils.get("mybatisDAO", MybatisDAO.class);
-		GenericQueryParam queryParam = new GenericQueryParam("WF_OPERATOR");
+		TableQueryParam queryParam = new TableQueryParam("WF_OPERATOR");
 		queryParam.addCondition("USER_ID", "*abc*", SqlValueType.string, SqlExpression.like);
 		PageParam page = new PageParam(0, 10);
-		List<DbRecord> list = mybatisDAO.findEntity(page, queryParam);
+		List<DbRecord> list = mybatisDAO.findTable(page, queryParam);
 		System.out.println(JSON.toJSONString(list));
 	}
 	
 	@Test
 	public void testCount() {
 		MybatisDAO mybatisDAO = BeanUtils.get("mybatisDAO", MybatisDAO.class);
-		GenericQueryParam queryParam = new GenericQueryParam("WF_OPERATOR");
+		TableQueryParam queryParam = new TableQueryParam("WF_OPERATOR");
 		queryParam.addCondition("USER_ID", "*abc*", SqlValueType.string, SqlExpression.like);
-		int count = mybatisDAO.countEntity(queryParam);
+		int count = mybatisDAO.countTable(queryParam);
 		System.out.println(count);
 	}
 }

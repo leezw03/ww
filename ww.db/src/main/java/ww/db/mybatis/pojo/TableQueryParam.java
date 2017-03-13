@@ -6,7 +6,7 @@ import ww.db.sql.em.SqlExpression;
 import ww.db.sql.em.SqlValueType;
 import ww.db.sql.pojo.SqlCondition;
 
-public class GenericQueryParam extends QueryParam<SqlCondition> {
+public class TableQueryParam extends QueryParam<SqlCondition> {
 
 	private String table;
 	
@@ -20,7 +20,7 @@ public class GenericQueryParam extends QueryParam<SqlCondition> {
 		this.addCondition(new SqlCondition(name, value, type, expression));
 	}
 	
-	public GenericQueryParam(String table) {
+	public TableQueryParam(String table) {
 		this.table = table;
 	}
 

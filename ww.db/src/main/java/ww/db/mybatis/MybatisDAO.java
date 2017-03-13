@@ -11,11 +11,11 @@ import org.apache.ibatis.session.RowBounds;
 import ww.core.mvc.pojo.PageParam;
 import ww.db.exception.DataAccessException;
 import ww.db.mybatis.pojo.DbRecord;
-import ww.db.mybatis.pojo.GenericQueryParam;
 import ww.db.mybatis.pojo.Pk;
 import ww.db.mybatis.pojo.Pk.PkCol;
 import ww.db.mybatis.pojo.Record;
 import ww.db.mybatis.pojo.SqlAdapter;
+import ww.db.mybatis.pojo.TableQueryParam;
 import ww.db.sql.pojo.SqlCondition;
 import ww.db.sql.utils.SqlConditionTool;
 
@@ -74,7 +74,7 @@ public class MybatisDAO extends AbsMybatisDAO<Record, Pk> {
 	 * @param queryParam
 	 * @return
 	 */
-	public int countEntity(GenericQueryParam queryParam) {
+	public int countTable(TableQueryParam queryParam) {
 		Map<String, Object> param = this.parseQueryParam(queryParam);
 		return super.count(param);
 	}
@@ -83,8 +83,8 @@ public class MybatisDAO extends AbsMybatisDAO<Record, Pk> {
 	 * @param queryParam
 	 * @return
 	 */
-	public List<DbRecord> findEntity(GenericQueryParam queryParam) {
-		return this.findEntity(null, queryParam);
+	public List<DbRecord> findTable(TableQueryParam queryParam) {
+		return this.findTable(null, queryParam);
 	}
 	/**
 	 * 查询表并分页
@@ -92,7 +92,7 @@ public class MybatisDAO extends AbsMybatisDAO<Record, Pk> {
 	 * @param queryParam
 	 * @return
 	 */
-	public List<DbRecord> findEntity(PageParam pageParam, GenericQueryParam queryParam) {
+	public List<DbRecord> findTable(PageParam pageParam, TableQueryParam queryParam) {
 		Map<String, Object> param = this.parseQueryParam(queryParam);
 		if(pageParam != null) {
 			RowBounds bounds = new RowBounds(pageParam.getStart(), pageParam.getLimit());
@@ -102,7 +102,7 @@ public class MybatisDAO extends AbsMybatisDAO<Record, Pk> {
 		}
 	}
 	
-	private Map<String, Object> parseQueryParam(GenericQueryParam queryParam) {
+	private Map<String, Object> parseQueryParam(TableQueryParam queryParam) {
 		Map<String, Object> param = new HashMap<String, Object>();
 		param.put("_table", queryParam.getTable());
 		param.put("_columnList", queryParam.getColumnList());
