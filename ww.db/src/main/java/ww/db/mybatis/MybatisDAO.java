@@ -15,7 +15,7 @@ import ww.db.mybatis.pojo.Pk;
 import ww.db.mybatis.pojo.Pk.PkCol;
 import ww.db.mybatis.pojo.Record;
 import ww.db.mybatis.pojo.SqlAdapter;
-import ww.db.mybatis.pojo.TableQueryParam;
+import ww.db.mybatis.pojo.SqlQueryParam;
 import ww.db.sql.pojo.SqlCondition;
 import ww.db.sql.utils.SqlConditionTool;
 
@@ -69,31 +69,38 @@ public class MybatisDAO extends AbsMybatisDAO<Record, Pk> {
 		}
 		return r;
 	}
+	
 	/**
-	 * 统计查询数量
+	 * 统计表数量
+	 * @param table
+	 * @param columns
 	 * @param queryParam
 	 * @return
 	 */
-	public int countTable(TableQueryParam queryParam) {
-		Map<String, Object> param = this.parseQueryParam(queryParam);
+	public int countTable(String table, SqlQueryParam queryParam) {
+		Map<String, Object> param = this.parseQueryParam(table, null, queryParam);
 		return super.count(param);
 	}
 	/**
 	 * 查询表
+	 * @param table
+	 * @param columns
 	 * @param queryParam
 	 * @return
 	 */
-	public List<DbRecord> findTable(TableQueryParam queryParam) {
-		return this.findTable(null, queryParam);
+	public List<DbRecord> findTable(String table, String[] columns, SqlQueryParam queryParam) {
+		return this.findTable(table, columns, null, queryParam);
 	}
 	/**
 	 * 查询表并分页
+	 * @param table
+	 * @param columns
 	 * @param pageParam
 	 * @param queryParam
 	 * @return
 	 */
-	public List<DbRecord> findTable(PageParam pageParam, TableQueryParam queryParam) {
-		Map<String, Object> param = this.parseQueryParam(queryParam);
+	public List<DbRecord> findTable(String table, String[] columns, PageParam pageParam, SqlQueryParam queryParam) {
+		Map<String, Object> param = this.parseQueryParam(table, columns, queryParam);
 		if(pageParam != null) {
 			RowBounds bounds = new RowBounds(pageParam.getStart(), pageParam.getLimit());
 			return this.getSqlSession().selectList(getSqlMap()+".findEntity", param, bounds);
@@ -102,10 +109,10 @@ public class MybatisDAO extends AbsMybatisDAO<Record, Pk> {
 		}
 	}
 	
-	private Map<String, Object> parseQueryParam(TableQueryParam queryParam) {
+	private Map<String, Object> parseQueryParam(String table, String[] columns, SqlQueryParam queryParam) {
 		Map<String, Object> param = new HashMap<String, Object>();
-		param.put("_table", queryParam.getTable());
-		param.put("_columnList", queryParam.getColumnList());
+		param.put("_table", table);
+		param.put("_columnList", columns);
 		param.put("_sort", queryParam.getSort());
 		List<String> _conditionList = new ArrayList<String>();
 		List<SqlCondition> conditionList = queryParam.getConditionList();
@@ -131,6 +138,7 @@ public class MybatisDAO extends AbsMybatisDAO<Record, Pk> {
 		SqlAdapter sqlAdapter = new SqlAdapter(sql);
 		return this.getSqlSession().selectList(this.getSqlMap()+".findSql", sqlAdapter);
 	}
+	
 	/**
 	 * 根据sql分页查询
 	 * @param sql
@@ -153,7 +161,7 @@ public class MybatisDAO extends AbsMybatisDAO<Record, Pk> {
 	 * @param sql
 	 * @return
 	 */
-	public int countBySql(String sql) {
+	public int countSql(String sql) {
 		SqlAdapter sqlAdapter = new SqlAdapter(sql);
 		return this.getSqlSession().selectOne(this.getSqlMap()+".countSql", sqlAdapter);
 	}
@@ -163,7 +171,7 @@ public class MybatisDAO extends AbsMybatisDAO<Record, Pk> {
 	 * @param sql
 	 * @return
 	 */
-	public int updateBySql(String sql) {
+	public int updateSql(String sql) {
 		SqlAdapter sqlAdapter = new SqlAdapter(sql);
 		return this.getSqlSession().update(this.getSqlMap()+".updateSql", sqlAdapter);
 	}
@@ -172,7 +180,7 @@ public class MybatisDAO extends AbsMybatisDAO<Record, Pk> {
 	 * @param sql
 	 * @return
 	 */
-	public int deleteBySql(String sql) {
+	public int deleteSql(String sql) {
 		SqlAdapter sqlAdapter = new SqlAdapter(sql);
 		return this.getSqlSession().delete(this.getSqlMap()+".deleteSql", sqlAdapter);
 	}

@@ -46,5 +46,9 @@ public class QueryParam<T> {
 	public void setSort(String sort) {
 		this.sort = sort;
 	}
+	
+	public void addCondition(T condition) {
+		conditionList.add(condition);
+	}
 
 }
