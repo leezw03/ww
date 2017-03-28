@@ -1,6 +1,7 @@
 package ww.db.mybatis.pojo;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -21,7 +22,7 @@ public class QueryParam<T> {
 	 * 变量参数
 	 * 通过替换sql中的关键词
 	 */
-	private Map<String, String> varMap;
+	private Map<String, Object> varMap;
 	/**
 	 * 排序
 	 */
@@ -34,11 +35,8 @@ public class QueryParam<T> {
 	public List<T> getConditionList() {
 		return conditionList;
 	}
-	public Map<String, String> getVarMap() {
+	public Map<String, Object> getVarMap() {
 		return varMap;
-	}
-	public void setVarMap(Map<String, String> varMap) {
-		this.varMap = varMap;
 	}
 	public String getSort() {
 		return sort;
@@ -50,5 +48,19 @@ public class QueryParam<T> {
 	public void addCondition(T condition) {
 		conditionList.add(condition);
 	}
-
+	
+	public void setVar(String key, Object value) {
+		if(this.varMap == null) {
+			this.varMap = new HashMap<String, Object>();
+		}
+		this.getVarMap().put(key, value);
+	}
+	
+	public Object getVar(String key) {
+		Object var = null;
+		if(this.varMap != null) {
+			var = this.varMap.get(key);
+		}
+		return var;
+	}
 }
