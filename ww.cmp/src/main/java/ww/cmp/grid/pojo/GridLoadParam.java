@@ -3,7 +3,7 @@ package ww.cmp.grid.pojo;
 import java.io.Serializable;
 
 import ww.core.mvc.pojo.PageParam;
-import ww.db.mybatis.pojo.QueryParam;
+import ww.db.mybatis.pojo.SqlQueryParam;
 
 public class GridLoadParam implements Serializable {
 
@@ -11,7 +11,7 @@ public class GridLoadParam implements Serializable {
 
 	private GridParam param;
 	
-	private QueryParam query;
+	private SqlQueryParam query;
 	
 	private PageParam page;
 
@@ -23,11 +23,11 @@ public class GridLoadParam implements Serializable {
 		this.param = param;
 	}
 
-	public QueryParam getQuery() {
+	public SqlQueryParam getQuery() {
 		return query;
 	}
 
-	public void setQuery(QueryParam query) {
+	public void setQuery(SqlQueryParam query) {
 		this.query = query;
 	}
 

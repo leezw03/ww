@@ -22,7 +22,7 @@ import ww.core.mvc.action.BaseAction;
 import ww.core.mvc.pojo.PageParam;
 import ww.core.mvc.pojo.PageResult;
 import ww.core.spring.BeanUtils;
-import ww.db.mybatis.pojo.QueryParam;
+import ww.db.mybatis.pojo.SqlQueryParam;
 
 @Controller
 @RequestMapping(value="/cmp/grid")
@@ -64,7 +64,7 @@ public class GridAction extends BaseAction {
 			@RequestParam(value="loadParam") String loadParamStr) {
 		GridLoadParam loadParam = JSON.parseObject(loadParamStr, GridLoadParam.class);
 		GridParam param = loadParam.getParam();
-		QueryParam query = loadParam.getQuery();
+		SqlQueryParam query = loadParam.getQuery();
 		PageParam page = loadParam.getPage();
 		IGridDataBO handler = this.getGridDataBO(param);
 		return handler.loadData(param, query, page);
@@ -76,7 +76,7 @@ public class GridAction extends BaseAction {
 			@RequestParam(value="loadParam") String loadParamStr) {
 		GridLoadParam loadParam = JSON.parseObject(loadParamStr, GridLoadParam.class);
 		GridParam param = loadParam.getParam();
-		QueryParam query = loadParam.getQuery();
+		SqlQueryParam query = loadParam.getQuery();
 		PageParam page = loadParam.getPage();
 		IGridDataBO handler = this.getGridDataBO(param);
 		return handler.loadPage(param, query, page);
